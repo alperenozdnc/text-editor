@@ -2,7 +2,7 @@ SRC_DIR = ./src
 .PHONY: all clean
 
 all: main.o 
-	@./run
+	@./run file.txt
 	@$(MAKE) --no-print-directory clean
 
 main.o:
