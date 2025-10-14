@@ -1,12 +1,29 @@
 SRC_DIR = ./src
-.PHONY: all clean
+OBJ_DIR = ./obj
+TARGET = run
 
-all: main.o 
-	@./run file.txt
-	@$(MAKE) --no-print-directory clean
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c99
 
-main.o:
-	@gcc $(SRC_DIR)/main.c -o run
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/file_exists.o
+
+all: run_and_clean
+
+run_and_clean: $(TARGET)
+	@./$(TARGET) $(ARGS)
+	@$(MAKE) clean --no-print-directory
+
+$(TARGET): $(OBJS)
+	@$(CC) $(OBJS) -o $(TARGET)
+
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/file_exists.o: $(SRC_DIR)/utils/file_exists.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm ./run
+	@rm -rf $(OBJ_DIR) $(TARGET)
+
