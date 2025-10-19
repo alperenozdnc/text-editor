@@ -1,27 +1,30 @@
-#include "utils/file_exists.h"
+#include "utils/is_valid_args.h"
+#include "utils/printl.h"
 
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-bool is_valid_args(int argc, const char *FILENAME) {
-    if (argc < 2) {
-        printf("ERROR: no input files\n");
+#define mvcurs(x, y) printf("\033[%d;%dH", (y), (x))
 
-        return false;
-    } else if (argc > 2) {
-        printf("ERROR: only one file allowed\n");
+#define set_raw() system("stty raw")
+#define set_canonical() system("stty cooked")
 
-        return false;
-    }
+#define KEY_ESC '\e'
+#define ARROW_UP 'k'
+#define ARROW_DOWN 'j'
+#define ARROW_LEFT 'h'
+#define ARROW_RIGHT 'l'
 
-    if (!file_exists(FILENAME)) {
-        printf("ERROR: %s doesnt exist\n", FILENAME);
+typedef struct {
+    int x;
+    int y;
+} cursor_pos;
 
-        return false;
-    }
-
-    return true;
+void init_cursor(cursor_pos *cursor) {
+    cursor->x = 0;
+    cursor->y = 0;
 }
 
 int main(int argc, char **argv) {
@@ -29,6 +32,63 @@ int main(int argc, char **argv) {
 
     if (!is_valid_args(argc, FILENAME))
         return 1;
+
+    system("clear");
+
+    FILE *fptr = fopen(FILENAME, "r");
+    int buf_size = 100;
+    char buffer[buf_size];
+
+    cursor_pos cursor;
+    init_cursor(&cursor);
+
+    char lines[MAX_ROW_SIZE][MAX_COL_SIZE] = {};
+    int i = 0;
+
+    while (fgets(buffer, buf_size, fptr)) {
+        for (size_t j = 0; j < strlen(buffer); j++) {
+            char str_c = buffer[j];
+            lines[i][j] = str_c;
+        }
+
+        i++;
+    }
+
+    printl(lines);
+
+    char c;
+
+    set_raw();
+
+    while ((c = getchar()) != KEY_ESC) {
+        getc(stdout);
+        system("clear");
+
+        printl(lines);
+
+        switch (c) {
+            case ARROW_UP:
+                cursor.y--;
+                break;
+            case ARROW_DOWN:
+                cursor.y++;
+                break;
+            case ARROW_LEFT:
+                cursor.x--;
+                break;
+            case ARROW_RIGHT:
+                cursor.x++;
+                break;
+        }
+
+        mvcurs(cursor.x, cursor.y);
+    }
+
+    set_canonical();
+
+    system("clear");
+
+    fclose(fptr);
 
     return 0;
 }
