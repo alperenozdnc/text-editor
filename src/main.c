@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define mvcurs(x, y) printf("\033[%d;%dH", (y), (x))
+#define mvcurs(x, y) printf("\033[%d;%dH", y, x)
 
 #define set_raw() system("stty raw")
 #define set_canonical() system("stty cooked")
