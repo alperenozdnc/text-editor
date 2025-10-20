@@ -8,8 +8,8 @@
 
 #define mvcurs(x, y) printf("\033[%d;%dH", y, x)
 
-#define set_raw() system("stty raw")
-#define set_canonical() system("stty cooked")
+#define set_raw() system("stty raw -echo")
+#define set_canonical() system("stty cooked echo")
 
 #define KEY_ESC '\e'
 #define ARROW_UP 'k'
