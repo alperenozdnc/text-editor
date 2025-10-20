@@ -55,6 +55,8 @@ int main(int argc, char **argv) {
     }
 
     printl(lines, lines_size);
+
+    cursor.x = strlen(lines[0]);
     mvcurs(cursor.x, cursor.y);
 
     char c;
@@ -65,22 +67,21 @@ int main(int argc, char **argv) {
         getc(stdout);
         system("clear");
 
-        printl(lines, lines_size);
-
         char *curr_line = lines[cursor.y - 1];
-
         int curr_line_size = strlen(curr_line);
 
         switch (c) {
             case ARROW_UP:
                 if (cursor.y > 1) {
                     cursor.y--;
+                    cursor.x = strlen(lines[cursor.y - 1]);
                 }
 
                 break;
             case ARROW_DOWN:
                 if (cursor.y <= (int)lines_size) {
                     cursor.y++;
+                    cursor.x = strlen(lines[cursor.y - 1]);
                 }
 
                 break;
@@ -96,7 +97,15 @@ int main(int argc, char **argv) {
                 }
 
                 break;
+            default:
+                lines[cursor.y - 1][cursor.x] = c;
+
+                cursor.x++;
+
+                break;
         }
+
+        printl(lines, lines_size);
 
         mvcurs(cursor.x, cursor.y);
     }
