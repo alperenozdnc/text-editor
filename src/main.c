@@ -69,16 +69,24 @@ int main(int argc, char **argv) {
 
         switch (c) {
             case ARROW_UP:
-                cursor.y--;
+                if (cursor.y > 1) {
+                    cursor.y--;
+                }
+
                 break;
             case ARROW_DOWN:
                 cursor.y++;
+
                 break;
             case ARROW_LEFT:
-                cursor.x--;
+                if (cursor.x > 1) {
+                    cursor.x--;
+                }
+
                 break;
             case ARROW_RIGHT:
                 cursor.x++;
+
                 break;
         }
 
