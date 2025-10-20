@@ -23,8 +23,8 @@ typedef struct {
 } cursor_pos;
 
 void init_cursor(cursor_pos *cursor) {
-    cursor->x = 0;
-    cursor->y = 0;
+    cursor->x = 1;
+    cursor->y = 1;
 }
 
 int main(int argc, char **argv) {
@@ -55,6 +55,7 @@ int main(int argc, char **argv) {
     }
 
     printl(lines);
+    mvcurs(cursor.x, cursor.y);
 
     char c;
 
