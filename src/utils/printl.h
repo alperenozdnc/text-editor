@@ -8,6 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 
-void printl(char lines[MAX_ROW_SIZE][MAX_COL_SIZE]);
+void printl(char lines[MAX_ROW_SIZE][MAX_COL_SIZE], size_t size);
 
 #endif

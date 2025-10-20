@@ -43,18 +43,18 @@ int main(int argc, char **argv) {
     init_cursor(&cursor);
 
     char lines[MAX_ROW_SIZE][MAX_COL_SIZE] = {};
-    int i = 0;
+    size_t lines_size = 0;
 
     while (fgets(buffer, buf_size, fptr)) {
         for (size_t j = 0; j < strlen(buffer); j++) {
             char str_c = buffer[j];
-            lines[i][j] = str_c;
+            lines[lines_size][j] = str_c;
         }
 
-        i++;
+        lines_size++;
     }
 
-    printl(lines);
+    printl(lines, lines_size);
     mvcurs(cursor.x, cursor.y);
 
     char c;
@@ -65,7 +65,11 @@ int main(int argc, char **argv) {
         getc(stdout);
         system("clear");
 
-        printl(lines);
+        printl(lines, lines_size);
+
+        char *curr_line = lines[cursor.y - 1];
+
+        int curr_line_size = strlen(curr_line);
 
         switch (c) {
             case ARROW_UP:
@@ -75,7 +79,9 @@ int main(int argc, char **argv) {
 
                 break;
             case ARROW_DOWN:
-                cursor.y++;
+                if (cursor.y <= (int)lines_size) {
+                    cursor.y++;
+                }
 
                 break;
             case ARROW_LEFT:
@@ -85,7 +91,9 @@ int main(int argc, char **argv) {
 
                 break;
             case ARROW_RIGHT:
-                cursor.x++;
+                if (cursor.x < curr_line_size) {
+                    cursor.x++;
+                }
 
                 break;
         }
