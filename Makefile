@@ -5,7 +5,8 @@ TARGET = run
 CC = gcc
 CFLAGS = -lm -Wall -Wextra -std=c99
 
-OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/file_exists.o $(OBJ_DIR)/is_valid_args.o $(OBJ_DIR)/printl.o
+SRCS := $(shell find $(SRC_DIR) -name '*.c')
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: run_and_clean
 
@@ -14,24 +15,11 @@ run_and_clean: $(TARGET)
 	@$(MAKE) clean --no-print-directory
 
 $(TARGET): $(OBJS)
-	@$(CC) ${CFLAGS} $(OBJS) -o $(TARGET)
+	@$(CC) $(CFLAGS) $(OBJS) -o $@
 
-$(OBJ_DIR)/main.o: $(SRC_DIR)/main.c
-	@mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/file_exists.o: $(SRC_DIR)/utils/file_exists.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/is_valid_args.o: $(SRC_DIR)/utils/is_valid_args.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/printl.o: $(SRC_DIR)/utils/printl.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
 
 clean:
 	@rm -rf $(OBJ_DIR) $(TARGET)
