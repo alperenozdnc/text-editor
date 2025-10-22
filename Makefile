@@ -3,7 +3,7 @@ OBJ_DIR = ./obj
 TARGET = run
 
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -lm -Wall -Wextra -std=c99
 
 OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/file_exists.o $(OBJ_DIR)/is_valid_args.o $(OBJ_DIR)/printl.o
 
@@ -14,7 +14,7 @@ run_and_clean: $(TARGET)
 	@$(MAKE) clean --no-print-directory
 
 $(TARGET): $(OBJS)
-	@$(CC) $(OBJS) -o $(TARGET)
+	@$(CC) ${CFLAGS} $(OBJS) -o $(TARGET)
 
 $(OBJ_DIR)/main.o: $(SRC_DIR)/main.c
 	@mkdir -p $(OBJ_DIR)
