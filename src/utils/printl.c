@@ -1,7 +1,4 @@
-#include "printl.h"
-
-#include <math.h>
-#include <stdlib.h>
+#include "../include/printl.h"
 
 char *pad_left(char fill_char, int len, char *initial_str) {
     char *output = malloc(sizeof(char) * len);

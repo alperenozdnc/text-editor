@@ -1,7 +1,5 @@
-#include "is_valid_args.h"
-#include "file_exists.h"
-
-#include <stdbool.h>
+#include "../include/is_valid_args.h"
+#include "../include/file_exists.h"
 
 bool is_valid_args(int argc, const char *FILENAME) {
     if (argc < 2) {

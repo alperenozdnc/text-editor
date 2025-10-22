@@ -1,5 +1,5 @@
-#include "utils/is_valid_args.h"
-#include "utils/printl.h"
+#include "include/is_valid_args.h"
+#include "include/printl.h"
 
 #include <stdbool.h>
 #include <stdio.h>
