@@ -1,15 +1,5 @@
 #include "include/main.h"
 
-typedef struct {
-    int x;
-    int y;
-} cursor_pos;
-
-void init_cursor(cursor_pos *cursor) {
-    cursor->x = 1;
-    cursor->y = 1;
-}
-
 int main(int argc, char **argv) {
     const char *FILENAME = argv[1];
 

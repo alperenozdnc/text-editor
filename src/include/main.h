@@ -1,3 +1,4 @@
+#include "cursor.h"
 #include "is_valid_args.h"
 #include "printl.h"
 
