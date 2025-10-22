@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <unistd.h>
 
 bool is_valid_args(int argc, const char *FILENAME);
 
