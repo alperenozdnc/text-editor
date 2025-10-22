@@ -3,8 +3,9 @@
 int main(int argc, char **argv) {
     const char *FILENAME = argv[1];
 
-    if (!validate_args(argc, FILENAME))
+    if (!validate_args(argc, FILENAME)) {
         return 1;
+    }
 
     system("clear");
 
