@@ -1,10 +1,10 @@
-#include "../include/is_valid_args.h"
+#include "../include/validate_args.h"
 
 bool file_exists(const char *filename) {
     return access(filename, F_OK) == 0;
 }
 
-bool is_valid_args(int argc, const char *FILENAME) {
+bool validate_args(int argc, const char *FILENAME) {
     if (argc < 2) {
         printf("ERROR: no input files\n");
 

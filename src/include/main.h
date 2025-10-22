@@ -1,6 +1,6 @@
 #include "cursor.h"
-#include "is_valid_args.h"
 #include "printl.h"
+#include "validate_args.h"
 
 #include <stdbool.h>
 #include <stdio.h>
