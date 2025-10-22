@@ -1,4 +1,6 @@
 #include "printl.h"
+
+#include <math.h>
 #include <stdlib.h>
 
 char *pad_left(char fill_char, int len, char *initial_str) {
@@ -21,11 +23,10 @@ char *pad_left(char fill_char, int len, char *initial_str) {
     return output;
 }
 
-void printl(char lines[MAX_ROW_SIZE][MAX_COL_SIZE], size_t size) {
-    char line_num_str[100];
-    sprintf(line_num_str, "%d", (int)size);
+int num_digit_count(int num) { return log10(num) + 1; }
 
-    int max_ln_len = strlen(line_num_str) + 1;
+void printl(char lines[MAX_ROW_SIZE][MAX_COL_SIZE], size_t size) {
+    int max_ln_len = num_digit_count((int)size);
 
     for (size_t i = 0; i < size; i++) {
         char *line = lines[i];
