@@ -1,26 +1,8 @@
 #include "../include/printl.h"
 
-char *pad_left(char fill_char, int len, char *initial_str) {
-    char *output = malloc(sizeof(char) * len);
-
-    int i = 0;
-    int j = 0;
-
-    while (i <= len) {
-        if (i < len - (int)strlen(initial_str) - 1) {
-            output[i] = fill_char;
-        } else {
-            output[i] = initial_str[j];
-            j++;
-        }
-
-        i++;
-    }
-
-    return output;
+int num_digit_count(int num) {
+    return log10(num) + 1;
 }
-
-int num_digit_count(int num) { return log10(num) + 1; }
 
 void printl(char lines[MAX_ROW_SIZE][MAX_COL_SIZE], size_t size) {
     int max_ln_len = num_digit_count((int)size);
@@ -30,7 +12,7 @@ void printl(char lines[MAX_ROW_SIZE][MAX_COL_SIZE], size_t size) {
         char idx_str[max_ln_len];
         sprintf(idx_str, "%d", (int)i + 1);
 
-        char *line_num = pad_left(' ', max_ln_len, idx_str);
+        char *line_num = pad_str_left(' ', max_ln_len, idx_str);
 
         printf("%s  ", line_num);
         free(line_num);
