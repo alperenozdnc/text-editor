@@ -1,16 +1,12 @@
 #include "../include/printl.h"
 
-int num_digit_count(int num) {
-    return log10(num) + 1;
-}
+void printl(file_info *file) {
+    int max_ln_len = get_min_x(file) - SPACE_BETWEEN_LN_AND_TEXT;
 
-void printl(char lines[MAX_ROW_SIZE][MAX_COL_SIZE], size_t size) {
-    int max_ln_len = num_digit_count((int)size);
-
-    for (size_t i = 0; i < size; i++) {
-        char *line = lines[i];
+    for (int i = 0; i < file->line_count; i++) {
+        char *line = file->lines[i];
         char idx_str[max_ln_len];
-        sprintf(idx_str, "%d", (int)i + 1);
+        sprintf(idx_str, "%d", i + 1);
 
         char *line_num = pad_str_left(' ', max_ln_len, idx_str);
 

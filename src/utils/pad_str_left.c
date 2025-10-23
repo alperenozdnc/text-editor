@@ -7,7 +7,7 @@ char *pad_str_left(char fill_char, int len, char *initial_str) {
     int j = 0;
 
     while (i <= len) {
-        if (i < len - (int)strlen(initial_str) - 1) {
+        if (i < len - (int)strlen(initial_str)) {
             output[i] = fill_char;
         } else {
             output[i] = initial_str[j];
