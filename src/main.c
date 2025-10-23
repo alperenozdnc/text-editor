@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    system("clear");
+    clear();
 
     file_info file;
     cursor_pos cursor;
@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     set_raw();
 
     while ((c = getchar()) != KEY_ESC) {
-        system("clear");
+        clear();
 
         int curr_line_len = get_max_x(&cursor, &file);
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 
     set_canonical();
 
-    system("clear");
+    clear();
 
     free_file_info(&file);
 

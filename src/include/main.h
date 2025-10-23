@@ -10,6 +10,7 @@
 
 #define set_raw() system("stty raw -echo")
 #define set_canonical() system("stty cooked echo")
+#define clear() printf("\e[1;1H\e[2J")
 
 #define KEY_ESC '\e'
 #define ARROW_UP 'k'
