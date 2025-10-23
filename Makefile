@@ -3,7 +3,7 @@ OBJ_DIR = ./obj
 TARGET = run
 
 CC = gcc
-CFLAGS = -lm -Wall -Wextra -std=c99
+CFLAGS = -lm -Wall -Wextra
 
 SRCS := $(shell find $(SRC_DIR) -name '*.c')
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
