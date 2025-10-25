@@ -7,9 +7,11 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    terminal_info terminal;
     file_info file;
     cursor_pos cursor;
 
+    init_terminal_info(&terminal);
     init_file_info(&file, FILENAME);
     init_cursor(&cursor);
 
