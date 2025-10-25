@@ -7,6 +7,11 @@ void init_file_info(file_info *file, const char *path) {
     file->lines = NULL;
     file->line_count = 0;
 
+    if (file->fptr == NULL) {
+        fprintf(stderr, "ERROR: could not open file\n");
+        exit(EXIT_FAILURE);
+    }
+
     char buffer[MAX_ROW_SIZE];
 
     while (fgets(buffer, sizeof(buffer), file->fptr)) {
