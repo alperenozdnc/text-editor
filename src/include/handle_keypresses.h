@@ -16,10 +16,12 @@
 #define set_canonical() system("stty cooked echo")
 
 #define KEY_ESC '\e'
-#define ARROW_UP 'k'
-#define ARROW_DOWN 'j'
-#define ARROW_LEFT 'h'
-#define ARROW_RIGHT 'l'
+#define KEY_EXIT 3
+
+#define ARROW_UP 'A'
+#define ARROW_DOWN 'B'
+#define ARROW_LEFT 'D'
+#define ARROW_RIGHT 'C'
 
 void handle_keypresses(cursor_pos *cursor, file_info *file);
 
