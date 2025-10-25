@@ -1,6 +1,8 @@
 #include "../include/printl.h"
 
 void printl(file_info *file) {
+    clear();
+
     int max_ln_len = get_min_x(file) - SPACE_BETWEEN_LN_AND_TEXT;
 
     for (int i = 0; i < file->line_count; i++) {

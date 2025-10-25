@@ -39,7 +39,6 @@ void handle_keypresses(cursor_pos *cursor, file_info *file) {
             }
         }
 
-        clear();
         printl(file);
 
         printf("x = %d, y = %d", cursor->x, cursor->y);

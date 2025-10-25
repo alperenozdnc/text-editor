@@ -1,6 +1,7 @@
 #ifndef PRINTL_H
 #define PRINTL_H
 
+#include "clear.h"
 #include "cursor.h"
 #include "file_info.h"
 #include "pad_str_left.h"
