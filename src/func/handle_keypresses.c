@@ -18,14 +18,12 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
                 case ARROW_UP:
                     if (cursor->y > 1) {
                         cursor->y--;
-                        mvcurs_to_eol(cursor, file);
                     }
 
                     break;
                 case ARROW_DOWN:
                     if (cursor->y < file->line_count) {
                         cursor->y++;
-                        mvcurs_to_eol(cursor, file);
                     }
 
                     break;
@@ -49,7 +47,7 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
 
         printf("x = %d, y = %d", cursor->x, cursor->y);
 
-        mvcurs(cursor->x, cursor->y);
+        mvcurs(cursor, file);
     }
 
     switch_terminal_mode(terminal);

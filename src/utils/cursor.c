@@ -1,11 +1,20 @@
 #include "../include/cursor.h"
 
-void mvcurs(int x, int y) {
-    printf("\033[%d;%dH", y, x);
+void mvcurs(cursor_pos *cursor, file_info *file) {
+    int min_x = get_min_x(file) + 1;
+    int max_x = get_max_x(cursor, file) + 1;
+
+    if (cursor->x < min_x) {
+        cursor->x = min_x;
+    } else if (cursor->x > max_x) {
+        cursor->x = max_x;
+    }
+
+    printf("\033[%d;%dH", cursor->y, cursor->x);
 }
 
-void init_cursor(cursor_pos *cursor) {
-    cursor->x = 1;
+void init_cursor(cursor_pos *cursor, file_info *file) {
+    cursor->x = get_min_x(file) + 1;
     cursor->y = 1;
 }
 

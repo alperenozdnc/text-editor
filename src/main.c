@@ -13,13 +13,12 @@ int main(int argc, char **argv) {
 
     init_terminal_info(&terminal);
     init_file_info(&file, FILENAME);
-    init_cursor(&cursor);
+    init_cursor(&cursor, &file);
 
     clear();
     printl(&file);
 
-    mvcurs_to_eol(&cursor, &file);
-    mvcurs(cursor.x, cursor.y);
+    mvcurs(&cursor, &file);
 
     handle_keypresses(&terminal, &cursor, &file);
 
