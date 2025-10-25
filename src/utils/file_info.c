@@ -1,5 +1,4 @@
 #include "../include/file_info.h"
-#include "../include/main.h"
 
 void init_file_info(file_info *file, const char *path) {
     file->path = path;
