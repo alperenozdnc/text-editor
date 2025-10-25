@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     cursor_pos cursor;
 
     init_terminal_info(&terminal);
-    init_file_info(&file, FILENAME);
+    init_file_info(&terminal, &file, FILENAME);
     init_cursor(&cursor, &file);
 
     clear();
@@ -20,9 +20,10 @@ int main(int argc, char **argv) {
 
     mvcurs(&cursor, &file);
 
-    handle_keypresses(&terminal, &cursor, &file);
+    switch_terminal_mode(&terminal);
+    handle_keypresses(&cursor, &file);
 
-    free_file_info(&file);
+    cleanup(&terminal, &file);
 
     return 0;
 }

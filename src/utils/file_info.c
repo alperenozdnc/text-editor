@@ -1,6 +1,8 @@
 #include "../include/file_info.h"
+#include "../include/cleanup.h"
 
-void init_file_info(file_info *file, const char *path) {
+void init_file_info(terminal_info *terminal, file_info *file,
+                    const char *path) {
     file->path = path;
     file->fptr = fopen(file->path, "r");
     file->lines = NULL;
@@ -8,6 +10,8 @@ void init_file_info(file_info *file, const char *path) {
 
     if (file->fptr == NULL) {
         fprintf(stderr, "ERROR: could not open file\n");
+        cleanup(terminal, file);
+
         exit(EXIT_FAILURE);
     }
 

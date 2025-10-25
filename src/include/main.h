@@ -1,3 +1,4 @@
+#include "cleanup.h"
 #include "clear.h"
 #include "cursor.h"
 #include "file_info.h"
