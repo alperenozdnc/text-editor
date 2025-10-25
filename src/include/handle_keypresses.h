@@ -21,6 +21,7 @@
 #define ARROW_LEFT 'D'
 #define ARROW_RIGHT 'C'
 
-void handle_keypresses(cursor_pos *cursor, file_info *file);
+void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
+                       file_info *file);
 
 #endif

@@ -19,8 +19,7 @@ int main(int argc, char **argv) {
 
     mvcurs(&cursor, &file);
 
-    switch_terminal_mode(&terminal);
-    handle_keypresses(&cursor, &file);
+    handle_keypresses(&terminal, &cursor, &file);
 
     cleanup(&terminal, &file);
 
