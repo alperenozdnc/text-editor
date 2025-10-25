@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     mvcurs_to_eol(&cursor, &file);
     mvcurs(cursor.x, cursor.y);
 
-    handle_keypresses(&cursor, &file);
+    handle_keypresses(&terminal, &cursor, &file);
 
     free_file_info(&file);
 

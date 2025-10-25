@@ -1,7 +1,8 @@
 #include "../include/handle_keypresses.h"
 
-void handle_keypresses(cursor_pos *cursor, file_info *file) {
-    set_raw();
+void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
+                       file_info *file) {
+    switch_terminal_mode(terminal);
 
     while (1) {
         char c = getchar();
@@ -51,6 +52,6 @@ void handle_keypresses(cursor_pos *cursor, file_info *file) {
         mvcurs(cursor->x, cursor->y);
     }
 
-    set_canonical();
+    switch_terminal_mode(terminal);
     clear();
 }
