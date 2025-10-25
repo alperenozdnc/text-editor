@@ -46,4 +46,5 @@ void handle_keypresses(cursor_pos *cursor, file_info *file) {
     }
 
     set_canonical();
+    clear();
 }

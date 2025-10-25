@@ -7,22 +7,19 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    clear();
-
     file_info file;
     cursor_pos cursor;
 
     init_file_info(&file, FILENAME);
     init_cursor(&cursor);
 
+    clear();
     printl(&file);
 
     mvcurs_to_eol(&cursor, &file);
     mvcurs(cursor.x, cursor.y);
 
     handle_keypresses(&cursor, &file);
-
-    clear();
 
     free_file_info(&file);
 
