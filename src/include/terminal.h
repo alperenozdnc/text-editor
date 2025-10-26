@@ -8,7 +8,7 @@
 
 typedef enum { TERM_MODE_COOKED, TERM_MODE_RAW } terminal_mode;
 
-typedef struct terminal_info_struct {
+typedef struct {
     int row;
     int col;
     terminal_mode mode;
