@@ -16,6 +16,7 @@ void mvcurs(cursor_pos *cursor, file_info *file) {
 void init_cursor(cursor_pos *cursor, file_info *file) {
     cursor->x = get_min_x(file) + 1;
     cursor->y = 1;
+    cursor->page = 1;
 }
 
 int get_min_x(file_info *file) {
@@ -32,4 +33,14 @@ int get_max_x(cursor_pos *cursor, file_info *file) {
 
 void mvcurs_to_eol(cursor_pos *cursor, file_info *file) {
     cursor->x = get_max_x(cursor, file) + 1;
+}
+
+/*
+ * converts a page-based y pos into an actual y pos for bound checking.
+ * for example, for a terminal with 50 rows,
+ * a page-based position could be (page 1, row 3).
+ * but the actual position becomes 53
+ */
+int get_actual_y(terminal_info *terminal, cursor_pos *cursor) {
+    return cursor->y + ((cursor->page) - 1) * terminal->row;
 }

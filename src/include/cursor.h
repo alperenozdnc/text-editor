@@ -10,6 +10,7 @@
 typedef struct {
     int x;
     int y;
+    int page;
 } cursor_pos;
 
 void mvcurs(cursor_pos *cursor, file_info *file);
@@ -17,5 +18,6 @@ void init_cursor(cursor_pos *cursor, file_info *file);
 void mvcurs_to_eol(cursor_pos *cursor, file_info *file);
 int get_min_x(file_info *file);
 int get_max_x(cursor_pos *cursor, file_info *file);
+int get_actual_y(terminal_info *terminal, cursor_pos *cursor);
 
 #endif

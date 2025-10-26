@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     init_file_info(&terminal, &file, FILENAME);
     init_cursor(&cursor, &file);
 
-    printl(&file);
+    printl(&terminal, &file, &cursor);
 
     mvcurs(&cursor, &file);
 

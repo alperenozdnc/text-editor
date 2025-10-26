@@ -16,14 +16,23 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
         if (c == KEY_ESC && getchar() == '[') {
             switch (getchar()) {
                 case ARROW_UP:
-                    if (cursor->y > 1) {
+                    if (cursor->y == 1 && cursor->page > 1) {
+                        cursor->page--;
+                        cursor->y = terminal->row - 1;
+                    } else if (cursor->y > 1) {
                         cursor->y--;
                     }
 
                     break;
                 case ARROW_DOWN:
-                    if (cursor->y < file->line_count) {
-                        cursor->y++;
+                    if (get_actual_y(terminal, cursor) <=
+                        file->line_count + 1) {
+                        if (cursor->y == terminal->row - 1) {
+                            cursor->page++;
+                            cursor->y = 1;
+                        } else {
+                            cursor->y++;
+                        }
                     }
 
                     break;
@@ -42,9 +51,7 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
             }
         }
 
-        printl(file);
-
-        printf("x = %d, y = %d", cursor->x, cursor->y);
+        printl(terminal, file, cursor);
 
         mvcurs(cursor, file);
     }
