@@ -15,8 +15,6 @@ typedef struct {
 
 void mvcurs(terminal_info *terminal, cursor_pos *cursor, file_info *file);
 void init_cursor(cursor_pos *cursor, file_info *file);
-void mvcurs_to_eol(terminal_info *terminal, cursor_pos *cursor,
-                   file_info *file);
 int get_min_x(file_info *file);
 int get_max_x(terminal_info *terminal, cursor_pos *cursor, file_info *file);
 int get_actual_y(terminal_info *terminal, cursor_pos *cursor);

@@ -32,11 +32,6 @@ int get_max_x(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     return get_min_x(file) + LINE_LEN - 1;
 }
 
-void mvcurs_to_eol(terminal_info *terminal, cursor_pos *cursor,
-                   file_info *file) {
-    cursor->x = get_max_x(terminal, cursor, file) + 1;
-}
-
 /*
  * converts a page-based y pos into an actual y pos for bound checking.
  * for example, for a terminal with 50 rows,
