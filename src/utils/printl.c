@@ -31,7 +31,7 @@ void print_info_line(terminal_info *terminal, cursor_pos *cursor,
            key_info, 0x1B);
 }
 
-void printl(terminal_info *terminal, file_info *file, cursor_pos *cursor) {
+void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     clear();
 
     int end = cursor->page * terminal->row;

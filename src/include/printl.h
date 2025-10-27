@@ -13,6 +13,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void printl(terminal_info *terminal, file_info *file, cursor_pos *cursor);
+void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file);
 
 #endif
