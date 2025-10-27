@@ -25,8 +25,7 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
 
                     break;
                 case ARROW_DOWN:
-                    if (get_actual_y(terminal, cursor) <=
-                        file->line_count + 1) {
+                    if (get_actual_y(terminal, cursor) < file->line_count - 1) {
                         if (cursor->y == terminal->row - 1) {
                             cursor->page++;
                             cursor->y = 1;
