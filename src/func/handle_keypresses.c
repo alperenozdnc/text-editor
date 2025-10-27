@@ -11,7 +11,7 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
             break;
         }
 
-        int curr_line_len = get_max_x(cursor, file);
+        int curr_line_len = get_max_x(terminal, cursor, file);
 
         if (c == KEY_ESC && getchar() == '[') {
             switch (getchar()) {
@@ -53,6 +53,6 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
 
         printl(terminal, file, cursor);
 
-        mvcurs(cursor, file);
+        mvcurs(terminal, cursor, file);
     }
 }

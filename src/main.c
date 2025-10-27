@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
 
     printl(&terminal, &file, &cursor);
 
-    mvcurs(&cursor, &file);
+    mvcurs(&terminal, &cursor, &file);
 
     handle_keypresses(&terminal, &cursor, &file);
 

@@ -1,8 +1,8 @@
 #include "../include/cursor.h"
 
-void mvcurs(cursor_pos *cursor, file_info *file) {
+void mvcurs(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     int min_x = get_min_x(file) + 1;
-    int max_x = get_max_x(cursor, file) + 1;
+    int max_x = get_max_x(terminal, cursor, file) + 1;
 
     if (cursor->x < min_x) {
         cursor->x = min_x;
@@ -25,14 +25,16 @@ int get_min_x(file_info *file) {
     return LINE_NUM_DIGITS_LEN + SPACE_BETWEEN_LN_AND_TEXT;
 }
 
-int get_max_x(cursor_pos *cursor, file_info *file) {
-    const int LINE_LEN = strlen(file->lines[cursor->y - 1]);
+int get_max_x(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
+    const int LINE_LEN =
+        strlen(file->lines[get_actual_y(terminal, cursor) - 1]);
 
     return get_min_x(file) + LINE_LEN - 1;
 }
 
-void mvcurs_to_eol(cursor_pos *cursor, file_info *file) {
-    cursor->x = get_max_x(cursor, file) + 1;
+void mvcurs_to_eol(terminal_info *terminal, cursor_pos *cursor,
+                   file_info *file) {
+    cursor->x = get_max_x(terminal, cursor, file) + 1;
 }
 
 /*

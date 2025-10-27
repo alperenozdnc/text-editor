@@ -6,17 +6,17 @@ bool file_exists(const char *filename) {
 
 bool validate_args(int argc, const char *FILENAME) {
     if (argc < 2) {
-        printf("ERROR: no input files\n");
+        fprintf(stderr, "ERROR: no input files\n");
 
         return false;
     } else if (argc > 2) {
-        printf("ERROR: only one file allowed\n");
+        fprintf(stderr, "ERROR: only one file allowed\n");
 
         return false;
     }
 
     if (!file_exists(FILENAME)) {
-        printf("ERROR: %s doesnt exist\n", FILENAME);
+        fprintf(stderr, "ERROR: %s doesnt exist\n", FILENAME);
 
         return false;
     }
