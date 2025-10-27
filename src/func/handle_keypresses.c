@@ -25,26 +25,33 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
 
                     break;
                 case ARROW_DOWN:
-                    if (get_actual_y(terminal, cursor) < file->line_count - 1) {
-                        if (cursor->y == terminal->row - 1) {
-                            cursor->page++;
-                            cursor->y = 1;
-                        } else {
-                            cursor->y++;
-                        }
+                    if (get_actual_y(terminal, cursor) >=
+                        file->line_count - 1) {
+                        break;
+                    }
+
+                    if (cursor->y == terminal->row - 1) {
+                        cursor->page++;
+                        cursor->y = 1;
+                    } else {
+                        cursor->y++;
                     }
 
                     break;
                 case ARROW_RIGHT:
-                    if (cursor->x <= curr_line_len) {
-                        cursor->x++;
+                    if (cursor->x > curr_line_len) {
+                        break;
                     }
+
+                    cursor->x++;
 
                     break;
                 case ARROW_LEFT:
-                    if (cursor->x - 1 > get_min_x(file)) {
-                        cursor->x--;
+                    if (cursor->x - 1 <= get_min_x(file)) {
+                        break;
                     }
+
+                    cursor->x--;
 
                     break;
             }
