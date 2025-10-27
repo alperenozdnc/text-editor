@@ -22,9 +22,13 @@ void print_info_line(terminal_info *terminal, cursor_pos *cursor,
         }
     }
 
+    int ESCAPE_CHAR = 0x1b;
+    int FG = 37;
+    int BG = 100;
+
     // weird escape codes are for making the background white
-    printf("%c[%d;%dm%s%s%c[0m", 0x1B, 30, 47, file_and_pos_info, key_info,
-           0x1B);
+    printf("%c[%d;%dm%s%s%c[0m", ESCAPE_CHAR, FG, BG, file_and_pos_info,
+           key_info, 0x1B);
 }
 
 void printl(terminal_info *terminal, file_info *file, cursor_pos *cursor) {
