@@ -2,14 +2,29 @@
 
 void print_info_line(terminal_info *terminal, cursor_pos *cursor,
                      file_info *file) {
-    char file_and_pos_info[100];
 
-    sprintf(file_and_pos_info, "[%s @ (%.2d,%.2d)]", file->path,
-            get_actual_y(terminal, cursor), cursor->x);
+    char file_and_pos_info[100];
+    int actual_y = get_actual_y(terminal, cursor);
+
+    sprintf(file_and_pos_info, "[%s @ (%.2d,%.2d)]", file->path, actual_y,
+            cursor->x);
 
     char *key_info =
         pad_str_left(' ', terminal->col - strlen(file_and_pos_info),
                      "[<ctrl-c> exit, <ctrl-h> help]");
+
+    if (actual_y >= file->line_count - terminal->row &&
+        cursor->page * terminal->row > file->line_count) {
+        int amount_of_lines = cursor->page * terminal->row - file->line_count;
+
+        for (int i = 0; i < amount_of_lines; i++) {
+            for (int j = 0; j < terminal->col; j++) {
+                printf("~");
+            }
+
+            printf("\r\n");
+        }
+    }
 
     // weird escape codes are for making the background white
     printf("%c[%d;%dm%s%s%c[0m", 0x1B, 30, 47, file_and_pos_info, key_info,
