@@ -51,7 +51,6 @@ void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
         }
 
         printl(terminal, cursor, file);
-
         mvcurs(terminal, cursor, file);
     }
 }
