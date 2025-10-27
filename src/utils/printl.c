@@ -18,11 +18,7 @@ void print_info_line(terminal_info *terminal, cursor_pos *cursor,
         int amount_of_lines = cursor->page * terminal->row - file->line_count;
 
         for (int i = 0; i < amount_of_lines; i++) {
-            for (int j = 0; j < terminal->col; j++) {
-                printf("~");
-            }
-
-            printf("\r\n");
+            printf("~\r\n");
         }
     }
 
