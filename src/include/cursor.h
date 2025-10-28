@@ -25,5 +25,6 @@ void init_cursor(cursor_pos *cursor, file_info *file);
 int get_min_x(file_info *file);
 int get_max_x(terminal_info *terminal, cursor_pos *cursor, file_info *file);
 int get_actual_y(terminal_info *terminal, cursor_pos *cursor);
+int get_actual_x(cursor_pos *cursor, file_info *file);
 
 #endif

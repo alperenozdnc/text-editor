@@ -44,3 +44,10 @@ int get_actual_y(terminal_info *terminal, cursor_pos *cursor) {
     return cursor->y + ((cursor->page) - 1) * terminal->row -
            (cursor->page - 1);
 }
+
+/*
+ * `get_actual_x()`: removes the line number offset from an x position.
+ */
+int get_actual_x(cursor_pos *cursor, file_info *file) {
+    return cursor->x - get_min_x(file);
+}
