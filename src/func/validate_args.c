@@ -4,6 +4,13 @@ bool file_exists(const char *filename) {
     return access(filename, F_OK) == 0;
 }
 
+/*
+   * validate_args() - makes sure there is a file,
+   * and only one file, and that it
+   exists on the filesystem.
+
+   @return: true if valid, false if invalid
+*/
 bool validate_args(int argc, const char *FILENAME) {
     if (argc < 2) {
         fprintf(stderr, "ERROR: no input files\n");

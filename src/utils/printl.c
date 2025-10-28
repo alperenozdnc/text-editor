@@ -1,5 +1,11 @@
 #include "../include/printl.h"
 
+/*
+ * `print_info_line()` - prints the info line.
+ * contains the cursor positions, the help menu
+ *
+ * and the shortcut for exiting the program.
+ */
 void print_info_line(terminal_info *terminal, cursor_pos *cursor,
                      file_info *file) {
 
@@ -31,6 +37,11 @@ void print_info_line(terminal_info *terminal, cursor_pos *cursor,
            key_info, 0x1B);
 }
 
+/*
+ * `printl()` - stands for print lines, prints the lines in buffer
+ *
+ * and the info line in the last row.
+ */
 void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     clear();
 

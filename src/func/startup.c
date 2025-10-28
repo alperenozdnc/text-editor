@@ -1,5 +1,11 @@
 #include "../include/startup.h"
 
+/*
+ * `startup()` - initializes and allocates mem for all structs,
+ * prints lines, and sets cursor at (1,1).
+ *
+ * `@FILENAME`: filesystem path of the edited file.
+ */
 void startup(const char *FILENAME, terminal_info *terminal, cursor_pos *cursor,
              file_info *file) {
     init_terminal_info(terminal);

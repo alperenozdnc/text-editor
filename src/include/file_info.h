@@ -8,6 +8,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+ * `struct file_info` - holds the necessary info about the file buffer.
+ *
+ * `@path` - filesystem path of the file
+ * `@fptr` - the pointer to the file stream
+ * `@lines` - the 2d array that contain all lines seperated by a newline.
+ * `@line_count` - sizeof lines
+ */
 typedef struct {
     const char *path;
     FILE *fptr;
