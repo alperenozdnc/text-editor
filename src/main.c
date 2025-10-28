@@ -1,4 +1,5 @@
 #include "include/main.h"
+#include "include/startup.h"
 
 int main(int argc, char **argv) {
     const char *FILENAME = argv[1];
@@ -11,13 +12,7 @@ int main(int argc, char **argv) {
     file_info file;
     cursor_pos cursor;
 
-    init_terminal_info(&terminal);
-    init_file_info(&terminal, &file, FILENAME);
-    init_cursor(&cursor, &file);
-
-    printl(&terminal, &cursor, &file);
-
-    mvcurs(&terminal, &cursor, &file);
+    startup(FILENAME, &terminal, &cursor, &file);
 
     handle_keypresses(&terminal, &cursor, &file);
 
