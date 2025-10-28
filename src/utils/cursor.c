@@ -41,5 +41,6 @@ int get_max_x(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
  * could be (page 1, row 3). but the actual position becomes 53
  */
 int get_actual_y(terminal_info *terminal, cursor_pos *cursor) {
-    return cursor->y + ((cursor->page) - 1) * terminal->row;
+    return cursor->y + ((cursor->page) - 1) * terminal->row -
+           (cursor->page - 1);
 }

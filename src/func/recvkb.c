@@ -28,7 +28,7 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
 
                 break;
             case ARROW_DOWN:
-                if (get_actual_y(terminal, cursor) >= file->line_count - 1) {
+                if (get_actual_y(terminal, cursor) == file->line_count) {
                     break;
                 }
 

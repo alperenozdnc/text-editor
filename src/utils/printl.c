@@ -7,30 +7,28 @@
  * and the shortcut for exiting the program.
  */
 void print_info_line(terminal_info *terminal, cursor_pos *cursor,
-                     file_info *file) {
+                     file_info *file, int begin, int end) {
 
     char file_and_pos_info[100];
     int actual_y = get_actual_y(terminal, cursor);
 
-    sprintf(file_and_pos_info, "[%s @ (%.2d,%.2d)]", file->path, actual_y,
-            cursor->x);
+    sprintf(file_and_pos_info, "[%s @ (%.2d,%.2d), viewing (%d, %d)]",
+            file->path, actual_y, cursor->x, begin + 1, end - 1);
 
     char *key_info =
         pad_str_left(' ', terminal->col - strlen(file_and_pos_info),
                      "[<ctrl-c> exit, <ctrl-h> help]");
 
-    if (actual_y >= file->line_count - terminal->row &&
-        cursor->page * terminal->row > file->line_count) {
-        int amount_of_lines = cursor->page * terminal->row - file->line_count;
-
-        for (int i = 0; i < amount_of_lines; i++) {
-            printf("~\r\n");
-        }
-    }
-
     int ESCAPE_CHAR = 0x1b;
     int FG = 37;
     int BG = 100;
+
+    if (end > file->line_count) {
+        // starting i from 1 because file->line_count is 1-based and end isnt
+        for (int i = 1; i < end - file->line_count; i++) {
+            printf("~\r\n");
+        }
+    }
 
     // weird escape codes are for making the background white
     printf("%c[%d;%dm%s%s%c[0m", ESCAPE_CHAR, FG, BG, file_and_pos_info,
@@ -45,7 +43,7 @@ void print_info_line(terminal_info *terminal, cursor_pos *cursor,
 void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     clear();
 
-    int end = cursor->page * terminal->row;
+    int end = cursor->page * terminal->row - (cursor->page - 1);
     int begin = end - terminal->row;
 
     int max_ln_len = get_min_x(file) - SPACE_BETWEEN_LN_AND_TEXT;
@@ -54,15 +52,15 @@ void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         // cursor and terminal sizes are 1-based
         int one_based_i = i + 1;
 
-        if (one_based_i < begin - 1) {
+        if (one_based_i <= begin) {
             continue;
-        } else if (one_based_i > end - 1) {
+        } else if (one_based_i >= end) {
             break;
         }
 
         char *line = file->lines[i];
         char idx_str[max_ln_len];
-        sprintf(idx_str, "%d", i + 1);
+        sprintf(idx_str, "%d", one_based_i);
 
         char *line_num = pad_str_left(' ', max_ln_len, idx_str);
 
@@ -81,5 +79,5 @@ void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         }
     }
 
-    print_info_line(terminal, cursor, file);
+    print_info_line(terminal, cursor, file, begin, end);
 }
