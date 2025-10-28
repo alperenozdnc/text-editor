@@ -11,9 +11,10 @@ void print_info_line(terminal_info *terminal, cursor_pos *cursor,
 
     char file_and_pos_info[100];
     int actual_y = get_actual_y(terminal, cursor);
+    int actual_x = get_actual_x(cursor, file);
 
     sprintf(file_and_pos_info, "[%s @ (%.2d,%.2d), viewing (%d, %d)]",
-            file->path, actual_y, cursor->x, begin + 1, end - 1);
+            file->path, actual_y, actual_x, begin + 1, end - 1);
 
     char *key_info =
         pad_str_left(' ', terminal->col - strlen(file_and_pos_info),
