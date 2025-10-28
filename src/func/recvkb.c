@@ -1,7 +1,7 @@
 #include "../include/recvkb.h"
 
 /*
- * recvkb - stands for receive keyboard. receives keypresses and updates the
+ * recvkb() - stands for receive keyboard. receives keypresses and updates the
  * cursor and the buffer accordingly.
  *
  *
