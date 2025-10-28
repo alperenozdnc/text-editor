@@ -3,6 +3,8 @@
 void init_terminal_info(terminal_info *terminal) {
     struct winsize window;
 
+    // the cryptic TIOCGWINSZ is just a magic number that tells ioctl
+    // to get the window size
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &window);
 
     terminal->row = window.ws_row;
