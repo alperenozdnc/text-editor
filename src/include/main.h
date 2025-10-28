@@ -4,6 +4,7 @@
 #include "file_info.h"
 #include "handle_keypresses.h"
 #include "printl.h"
+#include "startup.h"
 #include "terminal.h"
 #include "validate_args.h"
 

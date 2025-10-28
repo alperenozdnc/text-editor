@@ -1,5 +1,4 @@
 #include "include/main.h"
-#include "include/startup.h"
 
 int main(int argc, char **argv) {
     const char *FILENAME = argv[1];
