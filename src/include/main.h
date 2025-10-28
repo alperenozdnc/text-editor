@@ -2,7 +2,7 @@
 #include "clear.h"
 #include "cursor.h"
 #include "file_info.h"
-#include "handle_keypresses.h"
+#include "loop.h"
 #include "printl.h"
 #include "startup.h"
 #include "terminal.h"

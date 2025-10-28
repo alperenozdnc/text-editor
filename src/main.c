@@ -12,9 +12,7 @@ int main(int argc, char **argv) {
     cursor_pos cursor;
 
     startup(FILENAME, &terminal, &cursor, &file);
-
-    handle_keypresses(&terminal, &cursor, &file);
-
+    loop(&terminal, &cursor, &file);
     cleanup(&terminal, &file);
 
     return 0;

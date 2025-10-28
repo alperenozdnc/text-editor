@@ -1,5 +1,5 @@
-#ifndef HANDLE_KEYPRESSES_H
-#define HANDLE_KEYPRESSES_H
+#ifndef RECVKB_H
+#define RECVKB_H
 
 #include "clear.h"
 #include "cursor.h"
@@ -21,7 +21,6 @@
 #define ARROW_LEFT 'D'
 #define ARROW_RIGHT 'C'
 
-void handle_keypresses(terminal_info *terminal, cursor_pos *cursor,
-                       file_info *file);
+int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file);
 
 #endif
