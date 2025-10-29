@@ -17,6 +17,10 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     }
 
     int actual_y = get_actual_y(terminal, cursor);
+    int min_x = get_min_x(file);
+
+    int zerobased_x = get_actual_x(cursor, file) - 1;
+    int zerobased_y = actual_y - 1;
 
     if (c == KEY_ESC && getchar() == '[') {
         switch (getchar()) {
@@ -51,7 +55,7 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
 
                 break;
             case ARROW_LEFT:
-                if (cursor->x - 1 <= get_min_x(file)) {
+                if (cursor->x <= min_x + 1) {
                     break;
                 }
 
@@ -63,28 +67,31 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         return 0;
     }
 
-    int x = get_actual_x(cursor, file) - 1;
-    int y = actual_y - 1;
-
     if (c == KEY_BACKSPACE) {
-        if (x - 1 >= 0) {
-            chardel(file, x - 1, y);
+        if (zerobased_x - 1 >= 0) {
+            chardel(file, zerobased_x - 1, zerobased_y);
             cursor->x--;
-        } else if (x == 0 && strlen(file->lines[y]) == 1) {
-            lndel(file, y);
+        } else if (zerobased_x == 0 && strlen(file->lines[zerobased_y]) == 1) {
+            lndel(file, zerobased_y);
 
-            if (y > 0) {
+            if (zerobased_y > 0) {
                 cursor->y--;
             }
 
             cursor->x = get_max_x(terminal, cursor, file) + 1;
         }
     } else if (c == '\r') {
-        lnins(file, y);
+        if (zerobased_x != 0) {
+            lnins(file, zerobased_y + 1);
+        } else {
+            lnins(file, zerobased_y);
+        }
+
         cursor->y++;
-        cursor->x = get_min_x(file) + 1;
+        cursor->x = min_x + 1;
     } else {
-        charins(file, c, x, y);
+        charins(file, c, zerobased_x, zerobased_y);
+
         cursor->x++;
     }
 
