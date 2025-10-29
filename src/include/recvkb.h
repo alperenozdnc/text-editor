@@ -6,6 +6,8 @@
 #include "clear.h"
 #include "cursor.h"
 #include "file_info.h"
+#include "lndel.h"
+#include "lnins.h"
 #include "printl.h"
 #include "terminal.h"
 #include "validate_args.h"

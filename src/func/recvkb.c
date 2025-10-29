@@ -70,7 +70,19 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         if (x - 1 >= 0) {
             chardel(file, x - 1, y);
             cursor->x--;
+        } else if (x == 0 && strlen(file->lines[y]) == 1) {
+            lndel(file, y);
+
+            if (y > 0) {
+                cursor->y--;
+            }
+
+            cursor->x = get_max_x(terminal, cursor, file) + 1;
         }
+    } else if (c == '\r') {
+        lnins(file, y);
+        cursor->y++;
+        cursor->x = get_min_x(file) + 1;
     } else {
         charins(file, c, x, y);
         cursor->x++;
