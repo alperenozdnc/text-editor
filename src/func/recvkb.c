@@ -1,7 +1,7 @@
 #include "../include/recvkb.h"
 
 /*
- * recvkb() - stands for receive keyboard. receives keypresses and updates the
+ * `recvkb()` - stands for receive keyboard. receives keypresses and updates the
  * cursor and the buffer accordingly.
  *
  *
@@ -16,6 +16,8 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         return -1;
     }
 
+    int actual_y = get_actual_y(terminal, cursor);
+
     if (c == KEY_ESC && getchar() == '[') {
         switch (getchar()) {
             case ARROW_UP:
@@ -28,7 +30,7 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
 
                 break;
             case ARROW_DOWN:
-                if (get_actual_y(terminal, cursor) == file->line_count) {
+                if (actual_y == file->line_count) {
                     break;
                 }
 
@@ -57,6 +59,21 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
 
                 break;
         }
+
+        return 0;
+    }
+
+    int x = get_actual_x(cursor, file) - 1;
+    int y = actual_y - 1;
+
+    if (c == KEY_BACKSPACE) {
+        if (x - 1 >= 0) {
+            chardel(file, x - 1, y);
+            cursor->x--;
+        }
+    } else {
+        charins(file, c, x, y);
+        cursor->x++;
     }
 
     return 0;

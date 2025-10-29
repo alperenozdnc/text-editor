@@ -1,6 +1,8 @@
 #ifndef RECVKB_H
 #define RECVKB_H
 
+#include "chardel.h"
+#include "charins.h"
 #include "clear.h"
 #include "cursor.h"
 #include "file_info.h"
@@ -15,6 +17,7 @@
 
 #define KEY_ESC '\e'
 #define KEY_EXIT 3
+#define KEY_BACKSPACE 127
 
 #define ARROW_UP 'A'
 #define ARROW_DOWN 'B'
