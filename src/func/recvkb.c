@@ -22,7 +22,7 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     int zerobased_x = get_actual_x(cursor, file) - 1;
     int zerobased_y = actual_y - 1;
 
-    if (c == KEY_ESC && getchar() == '[') {
+    if (c == KEY_ESC && getchar() == CSI_BRACKET) {
         switch (getchar()) {
             case ARROW_UP:
                 if (cursor->y == 1 && cursor->page > 1) {
@@ -80,7 +80,7 @@ int recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
 
             cursor->x = get_max_x(terminal, cursor, file) + 1;
         }
-    } else if (c == '\r') {
+    } else if (c == KEY_ENTER) {
         if (zerobased_x != 0) {
             lnins(file, zerobased_y + 1);
         } else {

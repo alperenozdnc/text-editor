@@ -20,6 +20,9 @@
 #define KEY_ESC '\e'
 #define KEY_EXIT 3
 #define KEY_BACKSPACE 127
+#define KEY_ENTER '\r'
+
+#define CSI_BRACKET '['
 
 #define ARROW_UP 'A'
 #define ARROW_DOWN 'B'
