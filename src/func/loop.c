@@ -8,11 +8,16 @@ void loop(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     switch_terminal_mode(terminal);
 
     while (1) {
-        if (recvkb(terminal, cursor, file) == -1) {
+        action_type ret = recvkb(terminal, cursor, file);
+
+        if (ret == ACTION_EXIT) {
             break;
         }
 
-        printl(terminal, cursor, file);
+        if (ret == ACTION_PRINT) {
+            printl(terminal, cursor, file);
+        }
+
         mvcurs(terminal, cursor, file);
     }
 }
