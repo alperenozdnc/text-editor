@@ -52,7 +52,6 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
 
                     return ACTION_PRINT;
                 }
-
             case ARROW_RIGHT:
                 if (cursor->x > curr_line_len) {
                     return ACTION_NORMAL;
