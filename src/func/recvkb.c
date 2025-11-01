@@ -91,6 +91,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
                 }
 
                 cursor->x = get_max_x(terminal, cursor, file) + 1;
+                file->line_count--;
 
                 return ACTION_PRINT;
             }
@@ -105,6 +106,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
 
             cursor->y++;
             cursor->x = get_min_x(file) + 1;
+            file->line_count++;
 
             return ACTION_PRINT;
         default:
@@ -131,6 +133,8 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
 
     switch (c) {
         case KEY_EXIT:
+            save(file);
+
             return ACTION_EXIT;
         case KEY_ESC:
             if (getchar() == CSI_BRACKET) {

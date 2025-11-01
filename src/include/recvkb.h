@@ -9,6 +9,7 @@
 #include "lndel.h"
 #include "lnins.h"
 #include "printl.h"
+#include "save.h"
 #include "terminal.h"
 #include "validate_args.h"
 
