@@ -117,6 +117,18 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
                 mv_right(terminal, cursor, file);
 
                 return ACTION_PRINT;
+            } else {
+                if (zerobased_x == 0 && strlen(file->lines[zerobased_y]) > 1 &&
+                    zerobased_y > 0) {
+                    if (strlen(file->lines[zerobased_y - 1]) == 1) {
+                        file->line_count--;
+
+                        lndel(file, zerobased_y - 1);
+                        mv_up(terminal, cursor, file);
+
+                        return ACTION_PRINT;
+                    }
+                }
             }
 
             break;
