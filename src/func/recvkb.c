@@ -109,10 +109,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
             } else if (zerobased_x == 0 &&
                        strlen(file->lines[zerobased_y]) == 1) {
                 lndel(file, zerobased_y);
-
-                if (zerobased_y > 0) {
-                    mv_up(terminal, cursor, file);
-                }
+                mv_up(terminal, cursor, file);
 
                 cursor->x = get_max_x(terminal, cursor, file) + 1;
                 file->line_count--;
