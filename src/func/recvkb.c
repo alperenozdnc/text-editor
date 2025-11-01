@@ -77,6 +77,10 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
 
     switch (input) {
         case KEY_BACKSPACE:
+            if (file->line_count == 1) {
+                return ACTION_NORMAL;
+            }
+
             if (zerobased_x - 1 >= 0) {
                 chardel(file, zerobased_x - 1, zerobased_y);
                 cursor->x--;
