@@ -101,20 +101,19 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
                 return ACTION_NORMAL;
             }
 
-            if (zerobased_x - 1 >= 0) {
+            if (zerobased_x >= 1) {
                 chardel(file, zerobased_x - 1, zerobased_y);
                 mv_left(terminal, cursor, file);
 
                 return ACTION_PRINT;
             } else if (zerobased_x == 0 &&
                        strlen(file->lines[zerobased_y]) == 1) {
-                lndel(file, zerobased_y);
                 file->line_count--;
 
+                lndel(file, zerobased_y);
                 mv_up(terminal, cursor, file);
 
                 cursor->x = get_max_x(terminal, cursor, file);
-
                 mv_right(terminal, cursor, file);
 
                 return ACTION_PRINT;
@@ -129,17 +128,14 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
             }
 
             file->line_count++;
-
             mv_down(terminal, cursor, file);
 
             cursor->x = get_min_x(file);
-
             mv_right(terminal, cursor, file);
 
             return ACTION_PRINT;
         default:
             charins(file, input, zerobased_x, zerobased_y);
-
             mv_right(terminal, cursor, file);
 
             return ACTION_PRINT;
