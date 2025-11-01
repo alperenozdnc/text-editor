@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ignore __attribute__((unused))
+
 #define KEY_ESC '\e'
 #define KEY_EXIT 3
 #define KEY_BACKSPACE 127

@@ -1,5 +1,65 @@
 #include "../include/recvkb.h"
 
+bool mv_up(terminal_info *terminal, cursor_pos *cursor, ignore file_info *_) {
+    if (cursor->y > 1) {
+        cursor->y--;
+
+        return true;
+    }
+
+    if (cursor->y == 1 && cursor->page > 1) {
+        cursor->page--;
+        cursor->y = terminal->row - 1;
+
+        return true;
+    }
+
+    return false;
+}
+
+bool mv_down(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
+    if (get_actual_y(terminal, cursor) == file->line_count) {
+        return false;
+    }
+
+    if (cursor->y == terminal->row - 1) {
+        cursor->page++;
+        cursor->y = 1;
+
+        return true;
+    } else {
+        cursor->y++;
+
+        return true;
+    }
+
+    return false;
+}
+
+bool mv_right(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
+    int max = get_max_x(terminal, cursor, file);
+
+    if (cursor->x < max + 1) {
+        cursor->x++;
+
+        return true;
+    }
+
+    return false;
+}
+
+bool mv_left(ignore terminal_info *_, cursor_pos *cursor, file_info *file) {
+    int min_x = get_min_x(file);
+
+    if (cursor->x > min_x + 1) {
+        cursor->x--;
+
+        return true;
+    }
+
+    return false;
+}
+
 /*
  * `handlemov()` - handles cursor movement.
  *
@@ -7,57 +67,18 @@
  * */
 action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
                       file_info *file, char input) {
-    int curr_line_len = get_max_x(terminal, cursor, file);
-    int actual_y = get_actual_y(terminal, cursor);
-    int min_x = get_min_x(file);
+    char keys[] = {ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT};
+    bool (*exec[])(terminal_info *, cursor_pos *,
+                   file_info *) = {mv_up, mv_down, mv_left, mv_right};
 
-    switch (input) {
-        case ARROW_UP:
-            if (cursor->y == 1 && cursor->page > 1) {
-                cursor->page--;
-                cursor->y = terminal->row - 1;
+    for (int i = 0; i < 4; i++) {
+        if (input != keys[i]) {
+            continue;
+        }
 
-                return ACTION_PRINT;
-            } else if (cursor->y > 1) {
-                cursor->y--;
-
-                return ACTION_PRINT;
-            }
-
-            break;
-        case ARROW_DOWN:
-            if (actual_y == file->line_count) {
-                return ACTION_NORMAL;
-            }
-
-            if (cursor->y == terminal->row - 1) {
-                cursor->page++;
-                cursor->y = 1;
-
-                return ACTION_PRINT;
-            } else {
-                cursor->y++;
-
-                return ACTION_PRINT;
-            }
-
-            break;
-        case ARROW_RIGHT:
-            if (cursor->x > curr_line_len) {
-                return ACTION_NORMAL;
-            }
-
-            cursor->x++;
-
+        if (exec[i](terminal, cursor, file)) {
             return ACTION_PRINT;
-        case ARROW_LEFT:
-            if (cursor->x <= min_x + 1) {
-                return ACTION_NORMAL;
-            }
-
-            cursor->x--;
-
-            return ACTION_PRINT;
+        }
     }
 
     return ACTION_NORMAL;
@@ -82,7 +103,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
 
             if (zerobased_x - 1 >= 0) {
                 chardel(file, zerobased_x - 1, zerobased_y);
-                cursor->x--;
+                mv_left(terminal, cursor, file);
 
                 return ACTION_PRINT;
             } else if (zerobased_x == 0 &&
@@ -90,7 +111,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
                 lndel(file, zerobased_y);
 
                 if (zerobased_y > 0) {
-                    cursor->y--;
+                    mv_up(terminal, cursor, file);
                 }
 
                 cursor->x = get_max_x(terminal, cursor, file) + 1;
@@ -107,7 +128,8 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
                 lnins(file, zerobased_y);
             }
 
-            cursor->y++;
+            mv_down(terminal, cursor, file);
+
             cursor->x = get_min_x(file) + 1;
             file->line_count++;
 
@@ -115,7 +137,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
         default:
             charins(file, input, zerobased_x, zerobased_y);
 
-            cursor->x++;
+            mv_right(terminal, cursor, file);
 
             return ACTION_PRINT;
     }
