@@ -3,7 +3,6 @@
 /*
  * `handlemov()` - handles cursor movement.
  *
- *
  * `@return`: `action_type` enum.
  * */
 action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
