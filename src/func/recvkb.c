@@ -109,10 +109,13 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
             } else if (zerobased_x == 0 &&
                        strlen(file->lines[zerobased_y]) == 1) {
                 lndel(file, zerobased_y);
+                file->line_count--;
+
                 mv_up(terminal, cursor, file);
 
-                cursor->x = get_max_x(terminal, cursor, file) + 1;
-                file->line_count--;
+                cursor->x = get_max_x(terminal, cursor, file);
+
+                mv_right(terminal, cursor, file);
 
                 return ACTION_PRINT;
             }
@@ -125,10 +128,13 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
                 lnins(file, zerobased_y);
             }
 
+            file->line_count++;
+
             mv_down(terminal, cursor, file);
 
-            cursor->x = get_min_x(file) + 1;
-            file->line_count++;
+            cursor->x = get_min_x(file);
+
+            mv_right(terminal, cursor, file);
 
             return ACTION_PRINT;
         default:
