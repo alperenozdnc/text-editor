@@ -30,17 +30,17 @@ test __mv_down() {
 
     init(&ret, &terminal, &cursor, &file);
 
+    // normal moving down
     assert(mv_down(&terminal, &cursor, &file), "mv_down ret true (y+1)");
     assert(cursor.y == 2, "mv_down should work (y+1)");
 
+    // max bound
     cursor.y = file.line_count;
-
     assert(!mv_down(&terminal, &cursor, &file), "mv_down ret false (max+1)");
 
+    // page logic
     cursor.y = terminal.row - 1;
-
     assert(mv_down(&terminal, &cursor, &file), "mv_down ret true (page + 1)");
-
     assert(cursor.y == 1 && cursor.page == 2,
            "mv_down should change pages and pos (page + 1)");
 
@@ -56,18 +56,19 @@ test __mv_up() {
     init(&ret, &terminal, &cursor, &file);
     cursor.y = 2;
 
+    // normal moving down
     assert(mv_up(&terminal, &cursor, &file), "mv_up ret true (y-1)");
     assert(cursor.y == 1, "mv_up should work (y-1)");
 
+    // min bound
     cursor.y = 1;
-
     assert(!mv_up(&terminal, &cursor, &file), "mv_up ret false (min-1)");
 
+    // page logic
     cursor.y = 1;
     cursor.page = 2;
 
     assert(mv_up(&terminal, &cursor, &file), "mv_up ret true (page - 1)");
-
     assert(cursor.y == 4 && cursor.page == 1,
            "mv_down should change pages and pos (page - 1)");
 
@@ -82,14 +83,15 @@ test __mv_left() {
 
     init(&ret, &terminal, &cursor, &file);
 
+    // normal moving left
     cursor.x = get_min_x(&file) + 2;
     int old_x = cursor.x;
 
     assert(mv_left(&terminal, &cursor, &file), "mv_left ret true (x-1)");
     assert(cursor.x == old_x - 1, "mv_left should work (x-1)");
 
+    // min bound
     cursor.x = get_min_x(&file) + 1;
-
     assert(!mv_left(&terminal, &cursor, &file), "mv_left ret false (min-1)");
 
     return ret;
@@ -103,12 +105,14 @@ test __mv_right() {
 
     init(&ret, &terminal, &cursor, &file);
 
+    // normal moving right
     cursor.x = get_min_x(&file) + 1;
     int old_x = cursor.x;
 
     assert(mv_right(&terminal, &cursor, &file), "mv_right ret true (x+1)");
     assert(cursor.x == old_x + 1, "mv_right should work (x+1)");
 
+    // max bound
     old_x = get_max_x(&terminal, &cursor, &file) + 1;
     cursor.x = old_x;
 
