@@ -1,4 +1,6 @@
-#include "../include/validate_args.h"
+#include <txtedt/validate_args.h>
+
+#include <stdio.h>
 
 bool file_exists(const char *filename) {
     return access(filename, F_OK) == 0;

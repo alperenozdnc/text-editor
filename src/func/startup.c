@@ -1,4 +1,4 @@
-#include "../include/startup.h"
+#include <txtedt/startup.h>
 
 /*
  * `startup()` - initializes and allocates mem for all structs,

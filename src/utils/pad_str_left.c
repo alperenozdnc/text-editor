@@ -1,4 +1,7 @@
-#include "../include/pad_str_left.h"
+#include <txtedt/pad_str_left.h>
+
+#include <stdlib.h>
+#include <string.h>
 
 char *pad_str_left(char fill_char, int len, char *initial_str) {
     char *output = malloc(sizeof(char) * len);

@@ -1,4 +1,8 @@
-#include "../include/terminal.h"
+#include <txtedt/terminal.h>
+
+#include <stdlib.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 void init_terminal_info(terminal_info *terminal) {
     struct winsize window;

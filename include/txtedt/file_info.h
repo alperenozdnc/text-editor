@@ -1,12 +1,9 @@
 #ifndef FILE_INFO_H
 #define FILE_INFO_H
 
-#include "terminal.h"
+#include <txtedt/terminal.h>
 
-#include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 /*
  * `struct file_info` - holds the necessary info about the file buffer.

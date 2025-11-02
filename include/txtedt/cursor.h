@@ -1,9 +1,7 @@
 #ifndef CURSOR_H
 #define CURSOR_H
 
-#include "file_info.h"
-#include <stdlib.h>
-#include <string.h>
+#include <txtedt/file_info.h>
 
 #define SPACE_BETWEEN_LN_AND_TEXT 2;
 

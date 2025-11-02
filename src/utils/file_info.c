@@ -1,5 +1,8 @@
-#include "../include/file_info.h"
-#include "../include/cleanup.h"
+#include <txtedt/cleanup.h>
+#include <txtedt/file_info.h>
+
+#include <stdlib.h>
+#include <string.h>
 
 void init_file_info(terminal_info *terminal, file_info *file,
                     const char *path) {

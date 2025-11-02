@@ -1,4 +1,5 @@
-#include "../include/cleanup.h"
+#include <txtedt/cleanup.h>
+#include <txtedt/clear.h>
 
 /*
  * `cleanup()` - unallocates allocated memory and clears the term.

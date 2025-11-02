@@ -1,4 +1,11 @@
-#include "../include/printl.h"
+#include <txtedt/clear.h>
+#include <txtedt/pad_str_left.h>
+#include <txtedt/printl.h>
+
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
  * `print_info_line()` - prints the info line.

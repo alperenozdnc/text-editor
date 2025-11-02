@@ -1,11 +1,6 @@
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-
 typedef enum { TERM_MODE_COOKED, TERM_MODE_RAW } terminal_mode;
 
 /*

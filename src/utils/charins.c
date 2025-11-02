@@ -1,4 +1,7 @@
-#include "../include/charins.h"
+#include <txtedt/charins.h>
+
+#include <stdlib.h>
+#include <string.h>
 
 /*
  * `charins()` - stands for char insert. inserts at file->lines[[y]][[x]], grows

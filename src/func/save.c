@@ -1,6 +1,4 @@
-#include "../include/save.h"
-
-#define YES 'y'
+#include <txtedt/save.h>
 
 char uppercase(char c) {
     return c - 32;

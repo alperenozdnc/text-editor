@@ -1,4 +1,7 @@
-#include "../include/chardel.h"
+#include <txtedt/chardel.h>
+
+#include <stdlib.h>
+#include <string.h>
 
 /*
  * `chardel()` - stands for char delete. deletes at file->lines[[y]][[x]],

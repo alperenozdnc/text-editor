@@ -1,4 +1,7 @@
-#include "../include/recvkb.h"
+#include <txtedt/recvkb.h>
+
+#include <stdio.h>
+#include <string.h>
 
 bool mv_up(terminal_info *terminal, cursor_pos *cursor, ignore file_info *_) {
     if (cursor->y > 1) {

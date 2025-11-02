@@ -1,4 +1,4 @@
-#include "../include/loop.h"
+#include <txtedt/loop.h>
 
 /*
  * `loop()` - this is where the program lives. gets keypresses,

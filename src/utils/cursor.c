@@ -1,4 +1,7 @@
-#include "../include/cursor.h"
+#include <txtedt/cursor.h>
+
+#include <math.h>
+#include <string.h>
 
 /*
  * `mvcurs()` - moves the cursor to given x,y coordinates

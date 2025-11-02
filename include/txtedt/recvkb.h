@@ -1,22 +1,19 @@
 #ifndef RECVKB_H
 #define RECVKB_H
 
-#include "chardel.h"
-#include "charins.h"
-#include "clear.h"
-#include "cursor.h"
-#include "file_info.h"
-#include "lndel.h"
-#include "lnins.h"
-#include "printl.h"
-#include "save.h"
-#include "terminal.h"
-#include "validate_args.h"
+#include <txtedt/chardel.h>
+#include <txtedt/charins.h>
+#include <txtedt/clear.h>
+#include <txtedt/cursor.h>
+#include <txtedt/file_info.h>
+#include <txtedt/lndel.h>
+#include <txtedt/lnins.h>
+#include <txtedt/printl.h>
+#include <txtedt/save.h>
+#include <txtedt/terminal.h>
+#include <txtedt/validate_args.h>
 
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #define ignore __attribute__((unused))
 

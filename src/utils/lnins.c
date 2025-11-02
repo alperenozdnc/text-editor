@@ -1,4 +1,7 @@
-#include "../include/lnins.h"
+#include <txtedt/lnins.h>
+
+#include <stdlib.h>
+#include <string.h>
 
 /*
  * `lnins()` - stands for line insert. inserts a line at index y.

@@ -1,4 +1,7 @@
-#include "../include/lndel.h"
+#include <txtedt/lndel.h>
+
+#include <stdlib.h>
+#include <string.h>
 
 /*
  * `lndel()` - stands for line delete. deletes the line at index y.

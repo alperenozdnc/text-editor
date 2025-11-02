@@ -1,4 +1,10 @@
-#include "include/main.h"
+#include <txtedt/cleanup.h>
+#include <txtedt/cursor.h>
+#include <txtedt/file_info.h>
+#include <txtedt/loop.h>
+#include <txtedt/startup.h>
+#include <txtedt/terminal.h>
+#include <txtedt/validate_args.h>
 
 int main(int argc, char **argv) {
     const char *FILENAME = argv[1];
