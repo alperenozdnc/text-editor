@@ -40,9 +40,9 @@ test __mv_down() {
 
     // page logic
     cursor.y = terminal.row - 1;
-    assert(mv_down(&terminal, &cursor, &file), "mv_down ret true (page + 1)");
+    assert(mv_down(&terminal, &cursor, &file), "mv_down ret true (page+1)");
     assert(cursor.y == 1 && cursor.page == 2,
-           "mv_down should change pages and pos (page + 1)");
+           "mv_down should change pages and pos (page+1)");
 
     return ret;
 }
@@ -68,9 +68,9 @@ test __mv_up() {
     cursor.y = 1;
     cursor.page = 2;
 
-    assert(mv_up(&terminal, &cursor, &file), "mv_up ret true (page - 1)");
+    assert(mv_up(&terminal, &cursor, &file), "mv_up ret true (page-1)");
     assert(cursor.y == 4 && cursor.page == 1,
-           "mv_down should change pages and pos (page - 1)");
+           "mv_down should change pages and pos (page-1)");
 
     return ret;
 }
