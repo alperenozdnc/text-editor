@@ -126,6 +126,9 @@ int main() {
     test (*tests[])() = {__mv_down, __mv_up, __mv_left, __mv_right};
     size_t tests_len = sizeof(tests) / sizeof(tests[0]);
 
+    int total_asserts = 0;
+    int total_fails = 0;
+
     clear();
 
     printf("======= TESTING SUITE =======\n\n");
@@ -133,12 +136,18 @@ int main() {
     for (size_t i = 0; i < tests_len; i++) {
         test ret = tests[i]();
 
+        total_asserts += ret.assert_count;
+        total_fails += ret.fail_count;
+
         printf("%d out of %d correct\n", ret.assert_count - ret.fail_count,
                ret.assert_count);
         printf("\n");
     }
 
     printf("=============================\n\n");
+
+    printf("IN TOTAL, %d OUT OF %d CORRECT \n", total_asserts - total_fails,
+           total_asserts);
 
     return 0;
 }
