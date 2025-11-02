@@ -84,7 +84,7 @@ action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
         }
     }
 
-    return ACTION_NORMAL;
+    return ACTION_IDLE;
 }
 
 /*
@@ -101,7 +101,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
     switch (input) {
         case KEY_BACKSPACE:
             if (file->line_count == 1) {
-                return ACTION_NORMAL;
+                return ACTION_IDLE;
             }
 
             if (zerobased_x >= 1) {
@@ -156,7 +156,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
             return ACTION_PRINT;
     }
 
-    return ACTION_NORMAL;
+    return ACTION_IDLE;
 }
 
 /*
@@ -180,7 +180,7 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
                 return handlemov(terminal, cursor, file, getchar());
             }
 
-            return ACTION_NORMAL;
+            return ACTION_IDLE;
         default:
             return handleinsdel(terminal, cursor, file, c);
     }

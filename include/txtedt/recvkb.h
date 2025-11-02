@@ -29,7 +29,12 @@
 #define ARROW_LEFT 'D'
 #define ARROW_RIGHT 'C'
 
-typedef enum { ACTION_EXIT, ACTION_NORMAL, ACTION_PRINT } action_type;
+typedef enum { ACTION_EXIT, ACTION_IDLE, ACTION_PRINT } action_type;
+
+bool mv_up(terminal_info *terminal, cursor_pos *cursor, ignore file_info *_);
+bool mv_down(terminal_info *terminal, cursor_pos *cursor, file_info *file);
+bool mv_right(terminal_info *terminal, cursor_pos *cursor, file_info *file);
+bool mv_left(ignore terminal_info *_, cursor_pos *cursor, file_info *file);
 
 action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
                    file_info *file);
