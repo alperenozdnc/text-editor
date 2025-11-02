@@ -45,6 +45,7 @@ test __mv_down() {
     assert(cursor.y == 1 && cursor.page == 2,
            "mv_down should change pages and pos (page+1)");
 
+    free_file_info(&file);
     return ret;
 }
 
@@ -73,6 +74,7 @@ test __mv_up() {
     assert(cursor.y == 4 && cursor.page == 1,
            "mv_down should change pages and pos (page-1)");
 
+    free_file_info(&file);
     return ret;
 }
 
@@ -95,6 +97,7 @@ test __mv_left() {
     cursor.x = get_min_x(&file) + 1;
     assert(!mv_left(&terminal, &cursor, &file), "mv_left ret false (min-1)");
 
+    free_file_info(&file);
     return ret;
 }
 
@@ -119,6 +122,7 @@ test __mv_right() {
 
     assert(!mv_right(&terminal, &cursor, &file), "mv_right ret false (max+1)");
 
+    free_file_info(&file);
     return ret;
 }
 
