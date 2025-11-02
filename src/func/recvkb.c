@@ -111,8 +111,6 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
                 return ACTION_PRINT;
             } else if (zerobased_x == 0 &&
                        strlen(file->lines[zerobased_y]) == 1) {
-                file->line_count--;
-
                 lndel(file, zerobased_y);
                 mv_up(terminal, cursor, file);
 

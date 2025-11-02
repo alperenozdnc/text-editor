@@ -35,4 +35,6 @@ void lndel(file_info *file, int y) {
     }
 
     free(new_lines);
+
+    file->line_count--;
 }
