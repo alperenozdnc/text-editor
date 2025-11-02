@@ -142,7 +142,6 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
                 lnins(file, zerobased_y);
             }
 
-            file->line_count++;
             mv_down(terminal, cursor, file);
 
             cursor->x = get_min_x(file);
