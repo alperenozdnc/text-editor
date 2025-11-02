@@ -1,4 +1,5 @@
 #include <txtedt/assert.h>
+#include <txtedt/clear.h>
 #include <txtedt/cursor.h>
 #include <txtedt/file_info.h>
 #include <txtedt/recvkb.h>
@@ -125,6 +126,10 @@ int main() {
     test (*tests[])() = {__mv_down, __mv_up, __mv_left, __mv_right};
     size_t tests_len = sizeof(tests) / sizeof(tests[0]);
 
+    clear();
+
+    printf("======= TESTING SUITE =======\n\n");
+
     for (size_t i = 0; i < tests_len; i++) {
         test ret = tests[i]();
 
@@ -132,6 +137,8 @@ int main() {
                ret.assert_count);
         printf("\n");
     }
+
+    printf("=============================\n\n");
 
     return 0;
 }
