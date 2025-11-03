@@ -6,6 +6,7 @@
 #include <txtedt/terminal.h>
 
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
     int assert_count;
@@ -126,8 +127,57 @@ test __mv_right() {
     return ret;
 }
 
+test __lnins() {
+    test ret;
+    terminal_info terminal;
+    cursor_pos cursor;
+    file_info file;
+
+    init(&ret, &terminal, &cursor, &file);
+
+    // normal line insertion
+    int old_size = file.line_count;
+
+    lnins(&file, cursor.y);
+
+    char *empty = "\n";
+
+    assert(file.lines[old_size], "lnins adds lines");
+    assert(strcmp(file.lines[cursor.y], empty) == 0, "lnins adds empty lines");
+    assert(!file.lines[old_size + 1], "lnins adds only one line");
+    assert(file.line_count == old_size + 1, "lnins updates line count");
+
+    free_file_info(&file);
+    return ret;
+}
+
+test __lndel() {
+    test ret;
+    terminal_info terminal;
+    cursor_pos cursor;
+    file_info file;
+
+    init(&ret, &terminal, &cursor, &file);
+
+    // normal line deletion
+    int old_size = file.line_count;
+    char *old_last_line = strdup(file.lines[old_size - 1]);
+
+    lndel(&file, cursor.y);
+
+    assert(&old_last_line != &file.lines[old_size - 1], "lndel deletes lines");
+    assert(file.lines[old_size - 2], "lndel deletes only one line");
+    assert(file.line_count == old_size - 1, "lndel updates line count");
+
+    free_file_info(&file);
+    free(old_last_line);
+
+    return ret;
+}
+
 int main() {
-    test (*tests[])() = {__mv_down, __mv_up, __mv_left, __mv_right};
+    test (*tests[])() = {__mv_down,  __mv_up, __mv_left,
+                         __mv_right, __lnins, __lndel};
     size_t tests_len = sizeof(tests) / sizeof(tests[0]);
 
     int total_asserts = 0;
