@@ -1,4 +1,6 @@
 #include <txtedt/loop.h>
+#include <txtedt/printl.h>
+#include <txtedt/recvkb.h>
 
 /*
  * `loop()` - this is where the program lives. gets keypresses,
