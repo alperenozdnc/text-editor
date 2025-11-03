@@ -23,8 +23,9 @@ action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
     char keys[] = {ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT};
     bool (*exec[])(terminal_info *, cursor_pos *,
                    file_info *) = {mv_up, mv_down, mv_left, mv_right};
+    size_t dirsize = sizeof(exec) / sizeof(exec[0]);
 
-    for (int i = 0; i < 4; i++) {
+    for (size_t i = 0; i < dirsize; i++) {
         if (input != keys[i]) {
             continue;
         }
