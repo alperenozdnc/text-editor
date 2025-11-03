@@ -1,9 +1,12 @@
 #include <txtedt/assert.h>
+#include <txtedt/chardel.h>
+#include <txtedt/charins.h>
 #include <txtedt/clear.h>
 #include <txtedt/cursor.h>
 #include <txtedt/file_info.h>
+#include <txtedt/lndel.h>
+#include <txtedt/lnins.h>
 #include <txtedt/mv.h>
-#include <txtedt/recvkb.h>
 #include <txtedt/terminal.h>
 
 #include <stdlib.h>
