@@ -2,6 +2,7 @@
 #include <txtedt/clear.h>
 #include <txtedt/cursor.h>
 #include <txtedt/file_info.h>
+#include <txtedt/mv.h>
 #include <txtedt/recvkb.h>
 #include <txtedt/terminal.h>
 
