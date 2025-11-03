@@ -1,5 +1,6 @@
 #include <txtedt/cleanup.h>
 #include <txtedt/file_info.h>
+#include <txtedt/lnins.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +27,14 @@ void init_file_info(terminal_info *terminal, file_info *file,
 
         file->lines[file->line_count] = strdup(buffer);
         file->line_count++;
+    }
+
+    if (file->lines == 0) {
+        file->lines = malloc(sizeof(char *));
+
+        file->lines[0] = strdup("\n");
+
+        file->line_count = 1;
     }
 }
 
