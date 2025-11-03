@@ -31,9 +31,7 @@ void init_file_info(terminal_info *terminal, file_info *file,
 
     if (file->lines == 0) {
         file->lines = malloc(sizeof(char *));
-
         file->lines[0] = strdup("\n");
-
         file->line_count = 1;
     }
 }
