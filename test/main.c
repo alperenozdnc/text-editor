@@ -175,9 +175,58 @@ test __lndel() {
     return ret;
 }
 
+test __charins() {
+    test ret;
+    terminal_info terminal;
+    cursor_pos cursor;
+    file_info file;
+
+    init(&ret, &terminal, &cursor, &file);
+
+    // normal char insertion
+    size_t old_size = strlen(file.lines[cursor.y - 1]);
+
+    charins(&file, '`', cursor.x - 1, cursor.y - 1);
+
+    size_t new_size = strlen(file.lines[cursor.y - 1]);
+
+    assert(new_size == old_size + 1, "charins adds one char");
+    assert(file.lines[cursor.y - 1][cursor.x - 1] == '`',
+           "charins inserts at the right place");
+
+    free_file_info(&file);
+
+    return ret;
+}
+
+test __chardel() {
+    test ret;
+    terminal_info terminal;
+    cursor_pos cursor;
+    file_info file;
+
+    init(&ret, &terminal, &cursor, &file);
+
+    // normal char deletion
+    size_t old_size = strlen(file.lines[cursor.y - 1]);
+    char old_char = file.lines[cursor.y - 1][cursor.x - 1];
+
+    chardel(&file, cursor.x - 1, cursor.y - 1);
+
+    size_t new_size = strlen(file.lines[cursor.y - 1]);
+    char new_char = file.lines[cursor.y - 1][cursor.x - 1];
+
+    assert(new_size == old_size - 1, "chardel deletes one char");
+    assert(new_size != old_char, "chardel deletes at the right place");
+
+    free_file_info(&file);
+
+    return ret;
+}
+
 int main() {
-    test (*tests[])() = {__mv_down,  __mv_up, __mv_left,
-                         __mv_right, __lnins, __lndel};
+    test (*tests[])() = {__mv_down, __mv_up, __mv_left, __mv_right,
+                         __lnins,   __lndel, __charins, __chardel};
     size_t tests_len = sizeof(tests) / sizeof(tests[0]);
 
     int total_asserts = 0;
