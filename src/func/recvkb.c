@@ -1,6 +1,7 @@
 #include <txtedt/chardel.h>
 #include <txtedt/charins.h>
 #include <txtedt/clear.h>
+#include <txtedt/insrestd.h>
 #include <txtedt/lndel.h>
 #include <txtedt/lnins.h>
 #include <txtedt/mv.h>
@@ -11,6 +12,7 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
@@ -60,12 +62,15 @@ bool handleins(terminal_info *terminal, cursor_pos *cursor, file_info *file,
                char ins_type) {
     int zerobased_x = get_actual_x(cursor, file) - 1;
     int zerobased_y = get_actual_y(terminal, cursor) - 1;
+    int line_len = strlen(file->lines[zerobased_y]);
 
     if (ins_type == KEY_ENTER) {
-        if (zerobased_x != 0) {
+        if (zerobased_x == 0) {
+            lnins(file, zerobased_y);
+        } else if (zerobased_x == line_len - 1) {
             lnins(file, zerobased_y + 1);
         } else {
-            lnins(file, zerobased_y);
+            insrestd(file, zerobased_x, zerobased_y);
         }
 
         mv_down(terminal, cursor, file);
