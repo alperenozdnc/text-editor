@@ -38,6 +38,68 @@ action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
     return ACTION_IDLE;
 }
 
+bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
+    int zerobased_x = get_actual_x(cursor, file) - 1;
+    int zerobased_y = get_actual_y(terminal, cursor) - 1;
+
+    if (file->line_count == 1 && strlen(file->lines[zerobased_y]) == 1) {
+        return false;
+    }
+
+    if (zerobased_x >= 1) {
+        chardel(file, zerobased_x - 1, zerobased_y);
+        mv_left(terminal, cursor, file);
+
+        return true;
+    } else if (zerobased_x == 0 && strlen(file->lines[zerobased_y]) == 1) {
+        lndel(file, zerobased_y);
+        mv_up(terminal, cursor, file);
+
+        cursor->x = get_max_x(terminal, cursor, file);
+        mv_right(terminal, cursor, file);
+
+        return true;
+    } else {
+        if (zerobased_x == 0 && strlen(file->lines[zerobased_y]) > 1 &&
+            zerobased_y > 0) {
+            if (strlen(file->lines[zerobased_y - 1]) == 1) {
+                file->line_count--;
+
+                lndel(file, zerobased_y - 1);
+                mv_up(terminal, cursor, file);
+
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool handleins(terminal_info *terminal, cursor_pos *cursor, file_info *file,
+               char ins_type) {
+    int zerobased_x = get_actual_x(cursor, file) - 1;
+    int zerobased_y = get_actual_y(terminal, cursor) - 1;
+
+    if (ins_type == KEY_ENTER) {
+        if (zerobased_x != 0) {
+            lnins(file, zerobased_y + 1);
+        } else {
+            lnins(file, zerobased_y);
+        }
+
+        mv_down(terminal, cursor, file);
+
+        cursor->x = get_min_x(file);
+        mv_right(terminal, cursor, file);
+    } else {
+        charins(file, ins_type, zerobased_x, zerobased_y);
+        mv_right(terminal, cursor, file);
+    }
+
+    return true;
+}
+
 /*
  * `handleinsdel()` - handles insertion and deletion.
  *
@@ -45,66 +107,16 @@ action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
  * `@return`: `action_type` enum.
  * */
 action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
-                         file_info *file, char input) {
-    int zerobased_x = get_actual_x(cursor, file) - 1;
-    int zerobased_y = get_actual_y(terminal, cursor) - 1;
+                         file_info *file, char c) {
+    bool ret = false;
 
-    switch (input) {
-        case KEY_BACKSPACE:
-            if (file->line_count == 1) {
-                return ACTION_IDLE;
-            }
-
-            if (zerobased_x >= 1) {
-                chardel(file, zerobased_x - 1, zerobased_y);
-                mv_left(terminal, cursor, file);
-
-                return ACTION_PRINT;
-            } else if (zerobased_x == 0 &&
-                       strlen(file->lines[zerobased_y]) == 1) {
-                lndel(file, zerobased_y);
-                mv_up(terminal, cursor, file);
-
-                cursor->x = get_max_x(terminal, cursor, file);
-                mv_right(terminal, cursor, file);
-
-                return ACTION_PRINT;
-            } else {
-                if (zerobased_x == 0 && strlen(file->lines[zerobased_y]) > 1 &&
-                    zerobased_y > 0) {
-                    if (strlen(file->lines[zerobased_y - 1]) == 1) {
-                        file->line_count--;
-
-                        lndel(file, zerobased_y - 1);
-                        mv_up(terminal, cursor, file);
-
-                        return ACTION_PRINT;
-                    }
-                }
-            }
-
-            break;
-        case KEY_ENTER:
-            if (zerobased_x != 0) {
-                lnins(file, zerobased_y + 1);
-            } else {
-                lnins(file, zerobased_y);
-            }
-
-            mv_down(terminal, cursor, file);
-
-            cursor->x = get_min_x(file);
-            mv_right(terminal, cursor, file);
-
-            return ACTION_PRINT;
-        default:
-            charins(file, input, zerobased_x, zerobased_y);
-            mv_right(terminal, cursor, file);
-
-            return ACTION_PRINT;
+    if (c == KEY_BACKSPACE) {
+        ret = handledel(terminal, cursor, file);
+    } else {
+        ret = handleins(terminal, cursor, file, c);
     }
 
-    return ACTION_IDLE;
+    return ret ? ACTION_PRINT : ACTION_IDLE;
 }
 
 /*
