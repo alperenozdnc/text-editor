@@ -66,7 +66,7 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         if (zerobased_x == 0 && !line_is_empty && zerobased_y > 0) {
             size_t prev_line_len = strlen(file->lines[zerobased_y - 1]);
 
-            if (prev_line_len == 1) {
+            if ((int)prev_line_len == 1) {
                 file->line_count--;
 
                 lndel(file, zerobased_y - 1);
