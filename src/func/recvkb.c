@@ -15,6 +15,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+ * `handledel()` - stands for handle deletion.
+ * handles char deletion, line
+ * deletion, and edge cases
+ *
+ * `@return`: `true` if program should print, `false` if program should wait.
+ * */
 bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     int zerobased_x = get_actual_x(cursor, file) - 1;
     int zerobased_y = get_actual_y(terminal, cursor) - 1;
@@ -58,6 +65,13 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     return false;
 }
 
+/*
+ * `handleins()` - stands for handle insertion.
+ * handles char insertion, line
+ * insertion, and edge cases
+ *
+ * `@return`: `true` if program should print, `false` if program should wait.
+ * */
 bool handleins(terminal_info *terminal, cursor_pos *cursor, file_info *file,
                char ins_type) {
     int zerobased_x = get_actual_x(cursor, file) - 1;
