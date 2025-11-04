@@ -284,7 +284,7 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
         if (*changes_made == true) {
             printf("do you want to save changes (y/n)? ");
 
-            char c = getchar();
+            c = getchar();
         }
 
         if (c != '\0' && c != YES && c != YES - 32) {
