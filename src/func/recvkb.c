@@ -73,13 +73,14 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
                 }
 
                 charins(file, c, (prev_ln_size - 1) + i, zerobased_y - 1);
+            }
+
+            // -1 in the bound is for the \n removed when deleting
+            for (int i = 0; i < prev_ln_size - 1; i++) {
                 mv_right(terminal, cursor, file);
             }
 
             lndel(file, zerobased_y);
-
-            // moving left once because of the \n removed when deleting
-            mv_left(terminal, cursor, file);
 
             return true;
         }
