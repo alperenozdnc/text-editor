@@ -246,15 +246,18 @@ int main() {
         total_asserts += ret.assert_count;
         total_fails += ret.fail_count;
 
-        printf("%d out of %d correct\n", ret.assert_count - ret.fail_count,
-               ret.assert_count);
+        int total_passes = ret.assert_count - ret.fail_count;
+
+        printf("%d out of %d passed\n", total_passes, ret.assert_count);
         printf("\n");
     }
 
+    int total_passed = total_asserts - total_fails;
+
     printf("=============================\n\n");
 
-    printf("IN TOTAL, %d OUT OF %d CORRECT \n", total_asserts - total_fails,
-           total_asserts);
+    printf("%d out of %d passed -> %d%% \n", total_passed, total_asserts,
+           total_passed / total_asserts * 100);
 
     return 0;
 }
