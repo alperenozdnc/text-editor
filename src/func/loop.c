@@ -10,14 +10,16 @@ void loop(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     switch_terminal_mode(terminal);
 
     while (1) {
-        action_type ret = recvkb(terminal, cursor, file);
+        bool changes_made = false;
+
+        action_type ret = recvkb(terminal, cursor, file, &changes_made);
 
         if (ret == ACTION_EXIT) {
             break;
         }
 
         if (ret == ACTION_PRINT) {
-            printl(terminal, cursor, file);
+            printl(terminal, cursor, file, changes_made);
         }
 
         mvcurs(terminal, cursor, file);

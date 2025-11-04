@@ -155,13 +155,17 @@ action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
  * `@return`: `action_type` enum.
  * */
 action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
-                         file_info *file, char c) {
+                         file_info *file, char c, bool *changes_made) {
     bool ret = false;
 
     if (c == KEY_BACKSPACE) {
         ret = handledel(terminal, cursor, file);
     } else {
         ret = handleins(terminal, cursor, file, c);
+    }
+
+    if (ret) {
+        *changes_made = true;
     }
 
     return ret ? ACTION_PRINT : ACTION_IDLE;
@@ -174,11 +178,119 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
  *
  * `@return`: `action_type` enum.
  * */
-action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
-                   file_info *file) {
+action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
+                   bool *changes_made) {
     char c = getchar();
 
+    // start of line
+    if (c == KEY_BEGIN) {
+        cursor->x = get_min_x(file);
+
+        return ACTION_PRINT;
+    }
+
+    // end of line
+    if (c == KEY_END) {
+        cursor->x = get_max_x(terminal, cursor, file) + 1;
+
+        return ACTION_PRINT;
+    }
+
+    // end of file
+    if (c == KEY_EOF) {
+        while (mv_down(terminal, cursor, file)) {
+        }
+
+        return ACTION_PRINT;
+    }
+
+    // start of file
+    if (c == KEY_SOF) {
+        cursor->y = 1;
+        cursor->page = 1;
+
+        return ACTION_PRINT;
+    }
+
+    // move down one page
+    if (c == KEY_INCP) {
+        if (get_actual_y(terminal, cursor) + terminal->row <=
+            file->line_count) {
+            cursor->page++;
+        }
+
+        return ACTION_PRINT;
+    }
+
+    // move up one page
+    if (c == KEY_DECP) {
+        if (get_actual_y(terminal, cursor) - terminal->row >= 0) {
+            cursor->page--;
+        }
+
+        return ACTION_PRINT;
+    }
+
+    // delete current line
+    if (c == KEY_DELLINE) {
+        if (file->line_count > 1) {
+            lndel(file, get_actual_y(terminal, cursor) - 1);
+
+            return ACTION_PRINT;
+        }
+
+        return ACTION_IDLE;
+    }
+
+    // save file
+    if (c == KEY_SAVE) {
+        save(file);
+
+        *changes_made = false;
+
+        return ACTION_IDLE;
+    }
+
+    // help menu
+    if (c == KEY_HELP) {
+        clear();
+
+        printf("<ctrl-c>     exit txtedt\r\n");
+        printf("<ctrl-s>     save current changes \r\n");
+        printf("<ctrl-h>     display this menu\r\n");
+        printf("\r\n");
+        printf("<ctrl-z>     go to first in line\r\n");
+        printf("<ctrl-x>     go to last in line\r\n");
+        printf("\r\n");
+        printf("<ctrl-s>     go to start of file\r\n");
+        printf("<ctrl-e>     go to end of file\r\n");
+        printf("\r\n");
+        printf("<ctrl-u>     move one page up\r\n");
+        printf("<ctrl-d>     move one page down\r\n");
+        printf("\r\n");
+        printf("<ctrl-r>     delete current line\r\n");
+        printf("\r\n<any key>    go back to editing");
+
+        if (getchar()) {
+            return ACTION_PRINT;
+        }
+    }
+
     if (c == KEY_EXIT) {
+        clear();
+
+        char c = '\0';
+
+        if (*changes_made == true) {
+            printf("do you want to save changes (y/n)? ");
+
+            char c = getchar();
+        }
+
+        if (c != '\0' && c != YES && c != YES - 32) {
+            return ACTION_EXIT;
+        }
+
         save(file);
 
         return ACTION_EXIT;
@@ -192,5 +304,5 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
         return ACTION_IDLE;
     }
 
-    return handleinsdel(terminal, cursor, file, c);
+    return handleinsdel(terminal, cursor, file, c, changes_made);
 }

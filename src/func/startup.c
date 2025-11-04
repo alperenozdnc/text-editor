@@ -12,7 +12,7 @@ void startup(const char *FILENAME, terminal_info *terminal, cursor_pos *cursor,
     init_file_info(terminal, file, FILENAME);
     init_cursor(cursor, file);
 
-    printl(terminal, cursor, file);
+    printl(terminal, cursor, file, false);
 
     mvcurs(terminal, cursor, file);
 }

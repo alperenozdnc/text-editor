@@ -5,6 +5,9 @@
 #include <txtedt/file_info.h>
 #include <txtedt/terminal.h>
 
-void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file);
+#include <stdbool.h>
+
+void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file,
+            bool changes_made);
 
 #endif
