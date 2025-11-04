@@ -4,11 +4,13 @@
 #include <txtedt/clear.h>
 #include <txtedt/cursor.h>
 #include <txtedt/file_info.h>
+#include <txtedt/insrestd.h>
 #include <txtedt/lndel.h>
 #include <txtedt/lnins.h>
 #include <txtedt/mv.h>
 #include <txtedt/terminal.h>
 
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -221,7 +223,36 @@ test __chardel() {
     char new_char = file.lines[cursor.y - 1][cursor.x - 1];
 
     assert(new_size == old_size - 1, "chardel deletes one char");
-    assert(new_size != old_char, "chardel deletes at the right place");
+    assert(new_char != old_char, "chardel deletes at the right place");
+
+    free_file_info(&file);
+
+    return ret;
+}
+
+test __insrestd() {
+    test ret;
+    terminal_info terminal;
+    cursor_pos cursor;
+    file_info file;
+
+    init(&ret, &terminal, &cursor, &file);
+
+    cursor.y = 41;
+
+    // normal line slicing, deleting, and inserting
+    int oldlc = file.line_count;
+
+    char *ln = strdup(file.lines[cursor.y]);
+    size_t ln_size = strlen(ln);
+
+    insrestd(&file, floor((float)ln_size / 2), cursor.y);
+
+    assert(file.line_count == oldlc + 1, "insrestd inserts one line");
+
+    assert(strlen(file.lines[cursor.y]) + strlen(file.lines[cursor.y + 1]) ==
+               ln_size + 1,
+           "insrestd splits correctly ");
 
     free_file_info(&file);
 
@@ -229,14 +260,12 @@ test __chardel() {
 }
 
 int main() {
-    test (*tests[])() = {__mv_down, __mv_up, __mv_left, __mv_right,
-                         __lnins,   __lndel, __charins, __chardel};
+    test (*tests[])() = {__mv_down, __mv_up,   __mv_left, __mv_right, __lnins,
+                         __lndel,   __charins, __chardel, __insrestd};
     size_t tests_len = sizeof(tests) / sizeof(tests[0]);
 
     int total_asserts = 0;
     int total_fails = 0;
-
-    clear();
 
     printf("======= TESTING SUITE =======\n\n");
 
@@ -256,8 +285,8 @@ int main() {
 
     printf("=============================\n\n");
 
-    printf("%d out of %d passed -> %d%% \n", total_passed, total_asserts,
-           total_passed / total_asserts * 100);
+    printf("%d out of %d passed -> %f%% \n", total_passed, total_asserts,
+           (float)total_passed / total_asserts * 100);
 
     return 0;
 }
