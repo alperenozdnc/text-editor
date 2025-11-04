@@ -135,18 +135,19 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
                    file_info *file) {
     char c = getchar();
 
-    switch (c) {
-        case KEY_EXIT:
-            save(file);
+    if (c == KEY_EXIT) {
+        save(file);
 
-            return ACTION_EXIT;
-        case KEY_ESC:
-            if (getchar() == CSI_BRACKET) {
-                return handlemov(terminal, cursor, file, getchar());
-            }
-
-            return ACTION_IDLE;
-        default:
-            return handleinsdel(terminal, cursor, file, c);
+        return ACTION_EXIT;
     }
+
+    if (c == KEY_ESC) {
+        if (getchar() == CSI_BRACKET) {
+            return handlemov(terminal, cursor, file, getchar());
+        }
+
+        return ACTION_IDLE;
+    }
+
+    return handleinsdel(terminal, cursor, file, c);
 }
