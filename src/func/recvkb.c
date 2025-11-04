@@ -67,8 +67,6 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
             size_t prev_line_len = strlen(file->lines[zerobased_y - 1]);
 
             if ((int)prev_line_len == 1) {
-                file->line_count--;
-
                 lndel(file, zerobased_y - 1);
                 mv_up(terminal, cursor, file);
 
