@@ -67,16 +67,14 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         mv_right(terminal, cursor, file);
 
         return true;
-    } else {
-        if (is_moving_line_up_by_deleting) {
-            int prev_line_is_empty = strlen(file->lines[zerobased_y - 1]) == 1;
+    } else if (is_moving_line_up_by_deleting) {
+        int prev_line_is_empty = strlen(file->lines[zerobased_y - 1]) == 1;
 
-            if (prev_line_is_empty) {
-                lndel(file, zerobased_y - 1);
-                mv_up(terminal, cursor, file);
+        if (prev_line_is_empty) {
+            lndel(file, zerobased_y - 1);
+            mv_up(terminal, cursor, file);
 
-                return true;
-            }
+            return true;
         }
     }
 
