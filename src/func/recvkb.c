@@ -42,7 +42,10 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     int zerobased_x = get_actual_x(cursor, file) - 1;
     int zerobased_y = get_actual_y(terminal, cursor) - 1;
 
-    if (file->line_count == 1 && strlen(file->lines[zerobased_y]) == 1) {
+    size_t line_len = strlen(file->lines[zerobased_y]);
+    bool line_is_empty = (int)line_len == 1;
+
+    if (file->line_count == 1 && line_is_empty) {
         return false;
     }
 
@@ -51,7 +54,7 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         mv_left(terminal, cursor, file);
 
         return true;
-    } else if (zerobased_x == 0 && strlen(file->lines[zerobased_y]) == 1) {
+    } else if (zerobased_x == 0 && line_is_empty) {
         lndel(file, zerobased_y);
         mv_up(terminal, cursor, file);
 
@@ -60,9 +63,10 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
 
         return true;
     } else {
-        if (zerobased_x == 0 && strlen(file->lines[zerobased_y]) > 1 &&
-            zerobased_y > 0) {
-            if (strlen(file->lines[zerobased_y - 1]) == 1) {
+        if (zerobased_x == 0 && !line_is_empty && zerobased_y > 0) {
+            size_t prev_line_len = strlen(file->lines[zerobased_y - 1]);
+
+            if (prev_line_len == 1) {
                 file->line_count--;
 
                 lndel(file, zerobased_y - 1);
