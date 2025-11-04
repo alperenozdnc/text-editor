@@ -198,8 +198,8 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
 
     // end of file
     if (c == KEY_EOF) {
-        while (mv_down(terminal, cursor, file)) {
-        }
+        while (mv_down(terminal, cursor, file))
+            ;
 
         return ACTION_PRINT;
     }
