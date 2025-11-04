@@ -13,31 +13,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/*
- * `handlemov()` - handles cursor movement.
- *
- * `@return`: `action_type` enum.
- * */
-action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
-                      file_info *file, char input) {
-    char keys[] = {ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT};
-    bool (*exec[])(terminal_info *, cursor_pos *,
-                   file_info *) = {mv_up, mv_down, mv_left, mv_right};
-    size_t dirsize = sizeof(exec) / sizeof(exec[0]);
-
-    for (size_t i = 0; i < dirsize; i++) {
-        if (input != keys[i]) {
-            continue;
-        }
-
-        if (exec[i](terminal, cursor, file)) {
-            return ACTION_PRINT;
-        }
-    }
-
-    return ACTION_IDLE;
-}
-
 bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     int zerobased_x = get_actual_x(cursor, file) - 1;
     int zerobased_y = get_actual_y(terminal, cursor) - 1;
@@ -103,6 +78,31 @@ bool handleins(terminal_info *terminal, cursor_pos *cursor, file_info *file,
     }
 
     return true;
+}
+
+/*
+ * `handlemov()` - handles cursor movement.
+ *
+ * `@return`: `action_type` enum.
+ * */
+action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
+                      file_info *file, char input) {
+    char keys[] = {ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT};
+    bool (*exec[])(terminal_info *, cursor_pos *,
+                   file_info *) = {mv_up, mv_down, mv_left, mv_right};
+    size_t dirsize = sizeof(exec) / sizeof(exec[0]);
+
+    for (size_t i = 0; i < dirsize; i++) {
+        if (input != keys[i]) {
+            continue;
+        }
+
+        if (exec[i](terminal, cursor, file)) {
+            return ACTION_PRINT;
+        }
+    }
+
+    return ACTION_IDLE;
 }
 
 /*
