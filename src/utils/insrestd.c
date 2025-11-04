@@ -47,8 +47,8 @@ void insrestd(file_info *file, int x, int y) {
     unsliced[u] = '\n';
     unsliced[u + 1] = '\0';
 
-    int unsliced_len = strlen(unsliced);
-    int sliced_len = strlen(sliced);
+    int unsliced_len = u + 1;
+    int sliced_len = s;
 
     file->lines[y] = realloc(file->lines[y], unsliced_size);
 
