@@ -59,6 +59,29 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
             mv_up(terminal, cursor, file);
 
             return true;
+        } else {
+            int ln_size = strlen(file->lines[zerobased_y]);
+            int prev_ln_size = strlen(file->lines[zerobased_y - 1]);
+
+            mv_up(terminal, cursor, file);
+
+            for (int i = 0; i < ln_size; i++) {
+                char c = file->lines[zerobased_y][i];
+
+                if (c == '\n') {
+                    continue;
+                }
+
+                charins(file, c, (prev_ln_size - 1) + i, zerobased_y - 1);
+                mv_right(terminal, cursor, file);
+            }
+
+            lndel(file, zerobased_y);
+
+            // moving left once because of the \n removed when deleting
+            mv_left(terminal, cursor, file);
+
+            return true;
         }
     }
 
