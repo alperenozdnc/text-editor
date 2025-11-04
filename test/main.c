@@ -238,8 +238,6 @@ test __insrestd() {
 
     init(&ret, &terminal, &cursor, &file);
 
-    cursor.y = 41;
-
     // normal line slicing, deleting, and inserting
     int oldlc = file.line_count;
 
@@ -252,7 +250,7 @@ test __insrestd() {
 
     assert(strlen(file.lines[cursor.y]) + strlen(file.lines[cursor.y + 1]) ==
                ln_size + 1,
-           "insrestd splits correctly ");
+           "insrestd splits correctly");
 
     free_file_info(&file);
 
