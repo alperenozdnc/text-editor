@@ -47,18 +47,21 @@ void insrestd(file_info *file, int x, int y) {
     unsliced[u] = '\n';
     unsliced[u + 1] = '\0';
 
+    int unsliced_len = strlen(unsliced);
+    int sliced_len = strlen(sliced);
+
     file->lines[y] = realloc(file->lines[y], unsliced_size);
 
     // all of the charins, lnins, lndel, ... funcs break down without a \0
     file->lines[y][0] = '\0';
 
-    for (int i = 0; i < (int)strlen(unsliced); i++) {
+    for (int i = 0; i < unsliced_len; i++) {
         charins(file, unsliced[i], i, y);
     }
 
     lnins(file, y + 1);
 
-    for (int i = 0; i < (int)strlen(sliced); i++) {
+    for (int i = 0; i < sliced_len; i++) {
         charins(file, sliced[i], i, y + 1);
     }
 
