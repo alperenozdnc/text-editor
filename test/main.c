@@ -153,6 +153,15 @@ test __lnins() {
     assert(!file.lines[old_size + 1], "lnins adds only one line");
     assert(file.line_count == old_size + 1, "lnins updates line count");
 
+    cursor.y = file.line_count - 1;
+
+    old_size = file.line_count;
+
+    lnins(&file, cursor.y);
+
+    assert(file.line_count == old_size + 1, "lnins can insert at eof");
+    assert(1, "lnins surprisingly doesnt cause a segfault after that");
+
     free_file_info(&file);
     return ret;
 }
