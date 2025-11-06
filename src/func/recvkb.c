@@ -279,19 +279,18 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
     if (c == KEY_EXIT) {
         clear();
 
-        char c = '\0';
-
-        if (*changes_made == true) {
-            printf("do you want to save changes (y/n)? ");
-
-            c = getchar();
-        }
-
-        if (c != '\0' && c != YES && c != YES - 32) {
+        if (!*changes_made) {
             return ACTION_EXIT;
         }
 
-        save(file);
+        printf("txtedt: do you want to save changes (y/n)? ");
+
+        char k = getchar();
+
+        // -32 is for uppercasing
+        if (k == YES || k == YES - 32) {
+            save(file);
+        }
 
         return ACTION_EXIT;
     }

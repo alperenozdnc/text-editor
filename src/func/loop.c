@@ -9,9 +9,9 @@
 void loop(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     switch_terminal_mode(terminal);
 
-    while (1) {
-        bool changes_made = false;
+    bool changes_made = false;
 
+    while (1) {
         action_type ret = recvkb(terminal, cursor, file, &changes_made);
 
         if (ret == ACTION_EXIT) {
