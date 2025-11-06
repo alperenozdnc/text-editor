@@ -26,6 +26,11 @@ void lnins(file_info *file, int y) {
         new_lines[j++] = file->lines[i];
     }
 
+    // if y is the last idx, the prev loop wont be inclusive
+    if (y == len) {
+        new_lines[y] = "\n";
+    }
+
     file->lines = realloc(file->lines, new_size);
 
     for (int i = 0; i < len + 1; i++) {
