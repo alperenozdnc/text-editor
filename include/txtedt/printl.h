@@ -7,7 +7,6 @@
 
 #include <stdbool.h>
 
-void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file,
-            bool changes_made);
+void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file);
 
 #endif

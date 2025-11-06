@@ -159,7 +159,7 @@ action_type handlemov(terminal_info *terminal, cursor_pos *cursor,
  * `@return`: `action_type` enum.
  * */
 action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
-                         file_info *file, char c, bool *changes_made) {
+                         file_info *file, char c) {
     bool ret = false;
 
     if (c == KEY_BACKSPACE) {
@@ -169,7 +169,7 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
     }
 
     if (ret) {
-        *changes_made = true;
+        file->was_changed = true;
     }
 
     return ret ? ACTION_PRINT : ACTION_IDLE;
@@ -182,8 +182,8 @@ action_type handleinsdel(terminal_info *terminal, cursor_pos *cursor,
  *
  * `@return`: `action_type` enum.
  * */
-action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
-                   bool *changes_made) {
+action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
+                   file_info *file) {
     char c = getchar();
 
     // start of line
@@ -250,7 +250,7 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
     if (c == KEY_SAVE) {
         save(file);
 
-        *changes_made = false;
+        file->was_changed = false;
 
         return ACTION_IDLE;
     }
@@ -283,7 +283,7 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
     if (c == KEY_EXIT) {
         clear();
 
-        if (!*changes_made) {
+        if (!file->was_changed) {
             return ACTION_EXIT;
         }
 
@@ -307,5 +307,5 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
         return ACTION_IDLE;
     }
 
-    return handleinsdel(terminal, cursor, file, c, changes_made);
+    return handleinsdel(terminal, cursor, file, c);
 }

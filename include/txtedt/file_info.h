@@ -3,6 +3,7 @@
 
 #include <txtedt/terminal.h>
 
+#include <stdbool.h>
 #include <stdio.h>
 
 /*
@@ -12,12 +13,14 @@
  * `@fptr` - the pointer to the file stream
  * `@lines` - the 2d array that contain all lines seperated by a newline.
  * `@line_count` - sizeof lines
+ * `@was_changed` - true if file was changed since startup, else false.
  */
 typedef struct {
     const char *path;
     FILE *fptr;
     char **lines;
     int line_count;
+    bool was_changed;
 } file_info;
 
 #define MAX_ROW_SIZE 1000

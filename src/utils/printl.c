@@ -14,7 +14,7 @@
  * and the shortcut for exiting the program.
  */
 void print_info_line(terminal_info *terminal, cursor_pos *cursor,
-                     file_info *file, int begin, int end, bool changes_made) {
+                     file_info *file, int begin, int end) {
 
     char file_and_pos_info[100];
     int actual_y = get_actual_y(terminal, cursor);
@@ -22,7 +22,7 @@ void print_info_line(terminal_info *terminal, cursor_pos *cursor,
 
     sprintf(file_and_pos_info, "[%s @ (%.2d,%.2d), viewing (%d, %d)%s]",
             file->path, actual_y, actual_x, begin + 1, end - 1,
-            changes_made ? " (+)" : "");
+            file->was_changed ? " (+)" : "");
 
     char *key_info =
         pad_str_left(' ', terminal->col - strlen(file_and_pos_info),
@@ -49,8 +49,7 @@ void print_info_line(terminal_info *terminal, cursor_pos *cursor,
  *
  * and the info line in the last row.
  */
-void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file,
-            bool changes_made) {
+void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
     clear();
 
     int end = cursor->page * terminal->row - (cursor->page - 1);
@@ -89,5 +88,5 @@ void printl(terminal_info *terminal, cursor_pos *cursor, file_info *file,
         }
     }
 
-    print_info_line(terminal, cursor, file, begin, end, changes_made);
+    print_info_line(terminal, cursor, file, begin, end);
 }

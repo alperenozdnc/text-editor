@@ -11,6 +11,7 @@ void init_file_info(terminal_info *terminal, file_info *file,
     file->fptr = fopen(file->path, "r");
     file->lines = NULL;
     file->line_count = 0;
+    file->was_changed = false;
 
     if (file->fptr == NULL) {
         fprintf(stderr, "ERROR: could not open file\n");

@@ -31,7 +31,7 @@
 
 typedef enum { ACTION_EXIT, ACTION_IDLE, ACTION_PRINT } action_type;
 
-action_type recvkb(terminal_info *terminal, cursor_pos *cursor, file_info *file,
-                   bool *changes_made);
+action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
+                   file_info *file);
 
 #endif
