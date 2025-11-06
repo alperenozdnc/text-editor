@@ -43,7 +43,9 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         mv_left(terminal, cursor, file);
 
         return true;
-    } else if (is_line_deletion) {
+    }
+
+    if (is_line_deletion) {
         lndel(file, zerobased_y);
         mv_up(terminal, cursor, file);
 
@@ -51,7 +53,9 @@ bool handledel(terminal_info *terminal, cursor_pos *cursor, file_info *file) {
         mv_right(terminal, cursor, file);
 
         return true;
-    } else if (is_moving_line_up_by_deleting) {
+    }
+
+    if (is_moving_line_up_by_deleting) {
         int prev_line_is_empty = strlen(file->lines[zerobased_y - 1]) == 1;
 
         if (prev_line_is_empty) {
