@@ -252,7 +252,7 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
 
         file->was_changed = false;
 
-        return ACTION_IDLE;
+        return ACTION_PRINT;
     }
 
     // help menu
@@ -260,7 +260,7 @@ action_type recvkb(terminal_info *terminal, cursor_pos *cursor,
         clear();
 
         printf("<ctrl-c>     exit txtedt\r\n");
-        printf("<ctrl-s>     save current changes \r\n");
+        printf("<ctrl-w>     save current changes \r\n");
         printf("<ctrl-h>     display this menu\r\n");
         printf("\r\n");
         printf("<ctrl-z>     go to first in line\r\n");

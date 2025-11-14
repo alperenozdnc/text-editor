@@ -20,7 +20,7 @@
 #define KEY_DECP ctrl('u')
 #define KEY_DELLINE ctrl('r')
 #define KEY_HELP ctrl('h')
-#define KEY_SAVE ctrl('s')
+#define KEY_SAVE ctrl('w')
 
 #define CSI_BRACKET '['
 
