@@ -27,7 +27,7 @@ run `install.sh` to build the code and put it into the binaries.
     $ txtedt {filename}
 ```
 
-`<ctrl-h>` can be used for a shortcut list.
+`<ctrl-h>` can be used for a shortcut list. \
 `<ctrl-c>` exits the program.
 
 ### uninstallation
