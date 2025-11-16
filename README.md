@@ -24,7 +24,7 @@ run `install.sh` to build the code and put it into the binaries.
 ### usage
 
 ```bash
-    $ txtedt {filename}
+$ txtedt {filename}
 ```
 
 `<ctrl-h>` can be used for a shortcut list. \
