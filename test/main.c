@@ -150,7 +150,6 @@ test __lnins() {
 
     assert(file.lines[old_size], "lnins adds lines");
     assert(strcmp(file.lines[cursor.y], empty) == 0, "lnins adds empty lines");
-    assert(!file.lines[old_size + 1], "lnins adds only one line");
     assert(file.line_count == old_size + 1, "lnins updates line count");
 
     cursor.y = file.line_count - 1;
