@@ -27,6 +27,8 @@ all: $(TARGET) run clean
 $(TARGET): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $@
 
+build: $(TARGET)
+
 # Build object files from src
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
