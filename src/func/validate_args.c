@@ -1,9 +1,24 @@
 #include <txtedt/validate_args.h>
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-bool file_exists(const char *filename) {
-    return access(filename, F_OK) == 0;
+bool file_exists(const char *FILENAME) {
+    return access(FILENAME, F_OK) == 0;
+}
+
+void create_file(const char *FILENAME) {
+    // 5 -> touch
+    // 1 -> space
+    // +1 -> \0
+    char *file_creation_cmd = malloc(5 + 1 + strlen(FILENAME) + 1);
+    file_creation_cmd[0] = '\0';
+    sprintf(file_creation_cmd, "touch %s", FILENAME);
+
+    system(file_creation_cmd);
+
+    free(file_creation_cmd);
 }
 
 /*
@@ -25,9 +40,9 @@ bool validate_args(int argc, const char *FILENAME) {
     }
 
     if (!file_exists(FILENAME)) {
-        fprintf(stderr, "ERROR: %s doesnt exist\n", FILENAME);
+        create_file(FILENAME);
 
-        return false;
+        return true;
     }
 
     return true;
