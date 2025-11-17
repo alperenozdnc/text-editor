@@ -2,9 +2,6 @@
 
 really simple text editor i made to start learning C.
 
-<video src="https://github.com/alperenozdnc/txtedt/raw/master/txtedt.mp4" controls width="600">
-</video>
-
 ### what i learned
 
 this project helped me get ideas on:
