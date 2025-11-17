@@ -2,7 +2,7 @@
 
 really simple text editor i made to start learning C.
 
-<video src="https://github.com/alperenozdnc/txtedt/releases/download/v1.0.0/txtedt.mp4" controls width="600"></video>
+here is a [usage video](https://github.com/alperenozdnc/txtedt/releases/download/v1.0.0/txtedt.mp4)
 
 ### what i learned
 
