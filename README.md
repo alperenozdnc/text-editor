@@ -2,7 +2,8 @@
 
 really simple text editor i made to start learning C.
 
-![](https://github.com/alperenozdnc/txtedt/blob/master/txtedt.mp4)
+<video src="https://github.com/alperenozdnc/txtedt/raw/master/txtedt.mp4" controls width="600">
+</video>
 
 ### what i learned
 
