@@ -2,6 +2,8 @@
 
 really simple text editor i made to start learning C.
 
+![](./txtedt.mp4)
+
 ### what i learned
 
 this project helped me get ideas on:
